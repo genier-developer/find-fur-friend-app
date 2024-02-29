@@ -4,12 +4,13 @@ import {getDatabase} from "firebase/database"
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: process.env.VITE_API_KEY,
-    authDomain: process.env.VITE_AUTH_DOMAIN,
-    projectId: process.env.VITE_PROJECT_ID,
-    storageBucket: process.env.VITE_STORAGE_BUCKET,
-    messagingSenderId: process.env.VITE_MESSAGING_SENDER_ID,
-    appId: process.env.VITE_APP_ID
+    apiKey: "AIzaSyAVxBJijswcwsg4DNsGtr53hdH07uAcxtA",
+    authDomain: "pet-shelter-fa4be.firebaseapp.com",
+    databaseURL: "https://pet-shelter-fa4be-default-rtdb.firebaseio.com",
+    projectId: "pet-shelter-fa4be",
+    storageBucket: "pet-shelter-fa4be.appspot.com",
+    messagingSenderId: "531819954511",
+    appId: "1:531819954511:web:c1805dddcc60457c3f853a"
 };
 
 // Initialize Firebase
