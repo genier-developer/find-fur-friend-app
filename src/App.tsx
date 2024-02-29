@@ -11,11 +11,26 @@ import {fetchPets} from "./features/petSlice.ts";
 import {useAppDispatch} from "./app/hooks.ts";
 import {PetList} from "./components/PetList.tsx";
 import {AddNewPet} from "./components/AddNewPet.tsx";
+import {auth} from './firebase';
+import {selectUser, setUser, logout} from './features/authSlice';
+import {useSelector} from "react-redux";
 
 
 export const App: React.FC = () => {
+    const user = useSelector(selectUser);
     const dispatch = useAppDispatch()
     const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false)
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                dispatch(setUser(user));
+            } else {
+                dispatch(logout());
+            }
+        });
+        return () => unsubscribe();
+    }, [dispatch]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,7 +48,7 @@ export const App: React.FC = () => {
 
     }, [dispatch]);
 
-    const handleHomeButtonClick = ()=>{
+    const handleHomeButtonClick = () => {
         setIsAddNewPetOpen(false)
     }
 
