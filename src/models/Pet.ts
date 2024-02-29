@@ -10,9 +10,11 @@ export interface Pet {
     createdAt: string;
     updatedAt: string;
     image: string;
+    isFavourite?: boolean
 }
 export interface PetState {
     pets: Pet[];
+    favoritePets: string[];
     isLoading: boolean;
 }
 
