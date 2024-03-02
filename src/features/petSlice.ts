@@ -40,8 +40,8 @@ const petSlice = createSlice({
                 state.favoritePets.push(action.payload.id);
             }
         },
-        deleteFavoritePet: (state, action:  PayloadAction<string>) => {
-            console.log({deletedId: action.payload, favorites: state.favoritePets});
+        deleteFavoritePet: (state, action: PayloadAction<string>) => {
+            // console.log({deletedId: action.payload, favorites: state.favoritePets});
             state.favoritePets = state.favoritePets.filter(id => id !== action.payload)
         }
     },

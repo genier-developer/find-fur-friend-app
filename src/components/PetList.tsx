@@ -8,6 +8,7 @@ import {Pet} from "../models/Pet.ts";
 
 export const PetList = () => {
     const pets = useAppSelector(selectPets);
+
     const isLoading = useAppSelector(state => state.pet.isLoading);
     const [isAddNewPetVisible, setIsAddNewPetVisible] = useState(false);
 

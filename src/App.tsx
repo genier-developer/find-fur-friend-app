@@ -39,6 +39,10 @@ export const App: React.FC = () => {
         setIsAddNewPetOpen(false)
     }
 
+    const handleShowFavoritePets = () =>{
+        console.log("favorites pets")
+    }
+
     return (
         <BrowserRouter>
             <Box sx={{flexGrow: 1}}>
@@ -56,7 +60,7 @@ export const App: React.FC = () => {
                         <Button color="inherit" onClick={() => setIsAddNewPetOpen(true)}>
                             Add New Pet
                         </Button>
-                        <FavoriteBorderOutlined/>
+                        <FavoriteBorderOutlined onClick={handleShowFavoritePets}/>
                     </Toolbar>
                 </AppBar>
             </Box>
