@@ -11,9 +11,11 @@ import {fetchPets} from "./features/petSlice.ts";
 import {useAppDispatch} from "./app/hooks.ts";
 import {PetList} from "./components/PetList.tsx";
 import {AddNewPet} from "./components/AddNewPet.tsx";
+import {FavoriteBorderOutlined} from "@mui/icons-material";
 
 
 export const App: React.FC = () => {
+
     const dispatch = useAppDispatch()
     const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false)
 
@@ -33,8 +35,12 @@ export const App: React.FC = () => {
 
     }, [dispatch]);
 
-    const handleHomeButtonClick = ()=>{
+    const handleHomeButtonClick = () => {
         setIsAddNewPetOpen(false)
+    }
+
+    const handleShowFavoritePets = () =>{
+        console.log("favorites pets")
     }
 
     return (
@@ -54,6 +60,7 @@ export const App: React.FC = () => {
                         <Button color="inherit" onClick={() => setIsAddNewPetOpen(true)}>
                             Add New Pet
                         </Button>
+                        <FavoriteBorderOutlined onClick={handleShowFavoritePets}/>
                     </Toolbar>
                 </AppBar>
             </Box>
