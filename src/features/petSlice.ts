@@ -1,6 +1,7 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {RootState} from "../app/store";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppDispatch, RootState} from "../app/store";
 import {Pet, PetState} from "../models/Pet";
+import {addPetToFirebase, fetchPetsFromFirebase, removePetFromFirebase, updatePetInFirebase} from "../api/petApi.ts";
 
 export const initialState: PetState = {
     pets: [],
@@ -8,19 +9,42 @@ export const initialState: PetState = {
     isLoading: false,
 };
 
-export const fetchPets = createAsyncThunk('pet/fetchPets', async () => {
-    const response = await fetch('http://localhost:3003/pets');
-    if (response.ok) {
-        return response.json();
-    } else {
-        throw new Error("Failed to fetch pets");
-    }
-});
+export const fetchPets = () => async (dispatch: AppDispatch) => {
+    const pets = await fetchPetsFromFirebase(); // или fetchPetsFromJsonServer();
+    dispatch(setPets(pets));
+};
+
+export const addNewPet = (newPet: Pet) => async (dispatch: AppDispatch) => {
+    const addedPet = await addPetToFirebase(newPet); // или addPetToJsonServer(newPet);
+    dispatch(addPet(addedPet));
+};
+
+export const removePet = (petId: string) => async (dispatch: AppDispatch) => {
+    await removePetFromFirebase(petId); // или removePetFromJsonServer(petId);
+    dispatch(removePet(petId));
+};
+
+export const updatePet = (updatedPet: Pet) => async (dispatch: AppDispatch) => {
+    await updatePetInFirebase(updatedPet); // или updatePetInJsonServer(updatedPet);
+    dispatch(updatePet(updatedPet));
+};
+
+// export const fetchPets = createAsyncThunk('pet/fetchPets', async () => {
+//     const response = await fetch('http://localhost:3003/pets');
+//     if (response.ok) {
+//         return response.json();
+//     } else {
+//         throw new Error("Failed to fetch pets");
+//     }
+// });
 
 const petSlice = createSlice({
     name: 'pet',
     initialState,
     reducers: {
+        setPets: (state, action: PayloadAction<Pet[]>) => {
+            state.pets=action.payload;
+        },
         addPet: (state, action: PayloadAction<Pet>) => {
             state.pets.push(action.payload);
         },
@@ -47,20 +71,20 @@ const petSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchPets.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(fetchPets.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.pets = action.payload;
-            })
-            .addCase(fetchPets.rejected, (state) => {
-                state.isLoading = false;
-            });
+            // .addCase(fetchPets.pending, (state) => {
+            //     state.isLoading = true;
+            // })
+            // .addCase(fetchPets.fulfilled, (state, action) => {
+            //     state.isLoading = false;
+            //     state.pets = action.payload;
+            // })
+            // .addCase(fetchPets.rejected, (state) => {
+            //     state.isLoading = false;
+            // });
     },
 });
 
-export const {addPet, deletePet, updatePet, addFavoritePet, deleteFavoritePet} = petSlice.actions;
+export const {setPets, addPet, deletePet, addFavoritePet, deleteFavoritePet} = petSlice.actions;
 export const petReducer = petSlice.reducer;
 export const selectPets = (state: RootState) => state.pet.pets;
 export const selectFavoritePets = (state: RootState) => state.pet.favoritePets

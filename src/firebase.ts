@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import {getDatabase} from "firebase/database"
 import { getAuth } from "firebase/auth";
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyAVxBJijswcwsg4DNsGtr53hdH07uAcxtA",
     authDomain: "pet-shelter-fa4be.firebaseapp.com",
     databaseURL: "https://pet-shelter-fa4be-default-rtdb.firebaseio.com",

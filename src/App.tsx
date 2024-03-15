@@ -3,16 +3,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import {Box, Container} from "@mui/material";
-import {BrowserRouter, Link} from 'react-router-dom';
-import {useEffect, useState} from "react";
+import { Box, Container } from "@mui/material";
+import { BrowserRouter, Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import {fetchPets} from "./features/petSlice.ts";
-import {useAppDispatch} from "./app/hooks.ts";
-import {PetList} from "./components/PetList.tsx";
-import {AddNewPet} from "./components/AddNewPet.tsx";
-import {FavoriteBorderOutlined} from "@mui/icons-material";
-
+import { fetchPets } from "./features/petSlice";
+import { useAppDispatch } from "./app/hooks";
+import { PetList } from "./components/PetList";
+import { AddNewPet } from "./components/AddNewPet";
+import { FavoriteBorderOutlined } from "@mui/icons-material";
 
 export const App: React.FC = () => {
 
@@ -20,19 +19,7 @@ export const App: React.FC = () => {
     const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false)
 
     useEffect(() => {
-        const fetchData = async () => {
-            console.log('fetch data');
-            try {
-                await dispatch(fetchPets());
-            } catch (error) {
-                console.error('Error fetching pets:', error);
-            }
-        };
-
-        fetchData().then(() => {
-            console.log('fetchData completed');
-        });
-
+        dispatch(fetchPets());
     }, [dispatch]);
 
     const handleHomeButtonClick = () => {
@@ -75,4 +62,3 @@ export const App: React.FC = () => {
         </BrowserRouter>
     );
 };
-
