@@ -1,6 +1,6 @@
 import { Pet } from '../models/Pet';
 import { initializeApp } from "firebase/app";
-import { getDatabase, update} from "firebase/database";
+import { getDatabase} from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { set, ref, remove, get } from "firebase/database";
 
@@ -43,10 +43,3 @@ export const updatePetToFirebase = async (updatedPet: Pet): Promise<void> => {
     const { id, ...petWithoutId } = updatedPet;
     await set(ref(database, `pets/${id}`), petWithoutId);
 };
-
-// export const updatePetToFirebase = async (newPet: Pet): Promise<Pet> => {
-//     const updates:{[key:string]: Pet} = {};
-//     updates['/pets/' + newPet.id] = newPet;
-//     await update(ref(database), updates);
-//     return newPet;
-// };
