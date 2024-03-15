@@ -1,0 +1,12 @@
+// vite.config.ts
+import { defineConfig } from "file:///Users/user/projects/projects/Vite/pet-firebase/node_modules/.pnpm/vite@5.1.4/node_modules/vite/dist/node/index.js";
+import react from "file:///Users/user/projects/projects/Vite/pet-firebase/node_modules/.pnpm/@vitejs+plugin-react@4.2.1_vite@5.1.4/node_modules/@vitejs/plugin-react/dist/index.mjs";
+import dotenv from "file:///Users/user/projects/projects/Vite/pet-firebase/node_modules/.pnpm/dotenv@16.4.5/node_modules/dotenv/lib/main.js";
+dotenv.config();
+var vite_config_default = defineConfig({
+  plugins: [react()]
+});
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvVXNlcnMvdXNlci9wcm9qZWN0cy9wcm9qZWN0cy9WaXRlL3BldC1maXJlYmFzZVwiO2NvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9maWxlbmFtZSA9IFwiL1VzZXJzL3VzZXIvcHJvamVjdHMvcHJvamVjdHMvVml0ZS9wZXQtZmlyZWJhc2Uvdml0ZS5jb25maWcudHNcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfaW1wb3J0X21ldGFfdXJsID0gXCJmaWxlOi8vL1VzZXJzL3VzZXIvcHJvamVjdHMvcHJvamVjdHMvVml0ZS9wZXQtZmlyZWJhc2Uvdml0ZS5jb25maWcudHNcIjtpbXBvcnQge2RlZmluZUNvbmZpZ30gZnJvbSAndml0ZSdcbmltcG9ydCByZWFjdCBmcm9tICdAdml0ZWpzL3BsdWdpbi1yZWFjdCdcbmltcG9ydCBkb3RlbnYgZnJvbSAnZG90ZW52JztcblxuXG5kb3RlbnYuY29uZmlnKCk7XG5cbi8vIGh0dHBzOi8vdml0ZWpzLmRldi9jb25maWcvXG5leHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoe1xuICAgIHBsdWdpbnM6IFtyZWFjdCgpXSxcbn0pXG5cblxuIl0sCiAgIm1hcHBpbmdzIjogIjtBQUErVCxTQUFRLG9CQUFtQjtBQUMxVixPQUFPLFdBQVc7QUFDbEIsT0FBTyxZQUFZO0FBR25CLE9BQU8sT0FBTztBQUdkLElBQU8sc0JBQVEsYUFBYTtBQUFBLEVBQ3hCLFNBQVMsQ0FBQyxNQUFNLENBQUM7QUFDckIsQ0FBQzsiLAogICJuYW1lcyI6IFtdCn0K
