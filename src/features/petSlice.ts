@@ -1,7 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "../app/store";
 import {Pet, PetState} from "../models/Pet";
-import {addPetToFirebase, fetchPetsFromFirebase, removePetFromFirebase, updatePetInFirebase} from "../api/petApi.ts";
+import {
+    addPetToFirebase,
+    fetchPetsFromFirebase,
+    removePetFromFirebase,
+    updatePetToFirebase
+} from "../api/petApi.ts";
 
 export const initialState: PetState = {
     pets: [],
@@ -21,22 +26,13 @@ export const addNewPet = (newPet: Pet) => async (dispatch: AppDispatch) => {
 
 export const removePet = (petId: string) => async (dispatch: AppDispatch) => {
     await removePetFromFirebase(petId); // или removePetFromJsonServer(petId);
-    dispatch(removePet(petId));
+    dispatch(deletePet(petId));
 };
 
 export const updatePet = (updatedPet: Pet) => async (dispatch: AppDispatch) => {
-    await updatePetInFirebase(updatedPet); // или updatePetInJsonServer(updatedPet);
-    dispatch(updatePet(updatedPet));
+    await updatePetToFirebase(updatedPet); // или updatePetInJsonServer(updatedPet);
+    dispatch(updatePetName(updatedPet));
 };
-
-// export const fetchPets = createAsyncThunk('pet/fetchPets', async () => {
-//     const response = await fetch('http://localhost:3003/pets');
-//     if (response.ok) {
-//         return response.json();
-//     } else {
-//         throw new Error("Failed to fetch pets");
-//     }
-// });
 
 const petSlice = createSlice({
     name: 'pet',
@@ -51,7 +47,7 @@ const petSlice = createSlice({
         deletePet: (state, action: PayloadAction<string>) => {
             state.pets = state.pets.filter(pet => pet.id !== action.payload);
         },
-        updatePet: (state, action: PayloadAction<Pet>) => {
+        updatePetName: (state, action: PayloadAction<Pet>) => {
             const index = state.pets.findIndex((pet) => pet.id === action.payload.id);
             if (index !== -1) {
                 state.pets[index] = action.payload;
@@ -65,26 +61,14 @@ const petSlice = createSlice({
             }
         },
         deleteFavoritePet: (state, action: PayloadAction<string>) => {
-            // console.log({deletedId: action.payload, favorites: state.favoritePets});
             state.favoritePets = state.favoritePets.filter(id => id !== action.payload)
         }
     },
-    extraReducers: (builder) => {
-        builder
-            // .addCase(fetchPets.pending, (state) => {
-            //     state.isLoading = true;
-            // })
-            // .addCase(fetchPets.fulfilled, (state, action) => {
-            //     state.isLoading = false;
-            //     state.pets = action.payload;
-            // })
-            // .addCase(fetchPets.rejected, (state) => {
-            //     state.isLoading = false;
-            // });
-    },
+
 });
 
-export const {setPets, addPet, deletePet, addFavoritePet, deleteFavoritePet} = petSlice.actions;
+export const {setPets, addPet,  deletePet, updatePetName, addFavoritePet, deleteFavoritePet} = petSlice.actions;
 export const petReducer = petSlice.reducer;
 export const selectPets = (state: RootState) => state.pet.pets;
+export const selectFavouritePetsByFilter = (state: RootState)=> state.pet.pets.filter(pet=>pet.isFavourite)
 export const selectFavoritePets = (state: RootState) => state.pet.favoritePets

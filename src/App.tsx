@@ -27,7 +27,7 @@ export const App: React.FC = () => {
     }
 
     const handleShowFavoritePets = () =>{
-        console.log("favorites pets")
+        // dispatch()
     }
 
     return (

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {useAppDispatch} from "../app/hooks.ts";
-import {addPet} from "../features/petSlice.ts";
+import {addNewPet} from "../features/petSlice.ts";
 import {v1} from "uuid"
 import {Card, Container, FormControl, Typography} from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
@@ -40,7 +40,7 @@ export const AddNewPet: React.FC<AddNewPet> = ({onClose}) => {
     };
     const handleAdd = () => {
         console.log("add pet")
-        dispatch(addPet(newPet))
+        dispatch(addNewPet(newPet))
         onClose()
     }
     const handleCancel = () => {

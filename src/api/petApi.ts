@@ -1,9 +1,9 @@
 import { Pet } from '../models/Pet';
 import { initializeApp } from "firebase/app";
-import { getDatabase} from "firebase/database";
+import { getDatabase, update} from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { set, ref, remove, push, get } from "firebase/database";
-import {v1} from "uuid";
+import { set, ref, remove, get } from "firebase/database";
+
 
 export const firebaseConfig = {
     apiKey: "AIzaSyAVxBJijswcwsg4DNsGtr53hdH07uAcxtA",
@@ -29,17 +29,24 @@ export const fetchPetsFromFirebase = async (): Promise<Pet[]> => {
     return pets;
 };
 
-export const addPetToFirebase = async (newPet: Pet): Promise<Pet> => {
-    const newPetRef = push(ref(database, 'pets'));
-    await set(newPetRef, newPet);
-    return { ...newPet, id: v1() };
-};
+ export const addPetToFirebase = async (newPet: Pet): Promise<Pet> => {
+     const newPetRef = ref(database, 'pets/'+ newPet.id);
+     await set(newPetRef, newPet);
+     return newPet ;
+ };
 
 export const removePetFromFirebase = async (id: string): Promise<void> => {
     await remove(ref(database, `pets/${id}`));
 };
 
-export const updatePetInFirebase = async (updatedPet: Pet): Promise<void> => {
+export const updatePetToFirebase = async (updatedPet: Pet): Promise<void> => {
     const { id, ...petWithoutId } = updatedPet;
     await set(ref(database, `pets/${id}`), petWithoutId);
 };
+
+// export const updatePetToFirebase = async (newPet: Pet): Promise<Pet> => {
+//     const updates:{[key:string]: Pet} = {};
+//     updates['/pets/' + newPet.id] = newPet;
+//     await update(ref(database), updates);
+//     return newPet;
+// };

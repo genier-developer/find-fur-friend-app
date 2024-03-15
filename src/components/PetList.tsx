@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Container, Grid, LinearProgress, Typography } from '@mui/material';
 import { AddNewPet } from "./AddNewPet";
 import { useAppSelector } from "../app/hooks";
-import { selectPets } from "../features/petSlice";
+import { selectPets} from "../features/petSlice";
 import {Pet} from "../models/Pet.ts";
 
 export const PetList = () => {
     const pets = useAppSelector(selectPets);
+
 
     const isLoading = useAppSelector(state => state.pet.isLoading);
     const [isAddNewPetVisible, setIsAddNewPetVisible] = useState(false);
@@ -37,6 +38,7 @@ export const PetList = () => {
                         ))}
                     </>
                 )}
+
             </Grid>
         </Container>
     );

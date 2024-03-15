@@ -3,7 +3,13 @@ import {Card, CardActions, CardContent, CardMedia, TextField, Typography} from '
 import Button from "@mui/material/Button";
 import {Pet} from "../models/Pet";
 import {useAppDispatch} from "../app/hooks.ts";
-import {addFavoritePet, deleteFavoritePet, deletePet, selectFavoritePets, updatePet} from "../features/petSlice.ts";
+import {
+    addFavoritePet,
+    deleteFavoritePet,
+    removePet,
+    selectFavoritePets,
+    updatePet
+} from "../features/petSlice.ts";
 import {FavoriteBorderOutlined, FavoriteOutlined} from "@mui/icons-material";
 import {useSelector} from "react-redux";
 
@@ -22,7 +28,7 @@ export const PetItem: React.FC<PetItemProps> = ({pet}) => {
     const isFavoritePet = favorites.includes(pet.id);
 
     const handleDeletePet = () => {
-        dispatch(deletePet(pet.id))
+        dispatch(removePet(pet.id))
     }
     const handleToggleEditing = () => {
         setIsEditing(!isEditing);
@@ -46,11 +52,9 @@ export const PetItem: React.FC<PetItemProps> = ({pet}) => {
     }
 
     const handleAddFavoritePet = () => {
-        console.log('added to favorite')
         dispatch(addFavoritePet(pet))
     }
     const handleDeleteFavoritePet = ()=>{
-        console.log('delete from favorite')
         dispatch(deleteFavoritePet(pet.id))
     }
 
@@ -74,7 +78,7 @@ export const PetItem: React.FC<PetItemProps> = ({pet}) => {
                     }
 
                     { isFavoritePet ?
-                        <FavoriteOutlined  onClick = {handleDeleteFavoritePet} color={'secondary'}/>
+                        <FavoriteOutlined  onClick = {handleDeleteFavoritePet} color={'primary'}/>
                         : <FavoriteBorderOutlined onClick={handleAddFavoritePet} color={'primary'}/>
                     }
                 </div>
