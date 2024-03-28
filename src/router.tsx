@@ -78,13 +78,13 @@ export const router = createBrowserRouter([
 
 function PrivateRoutes() {
   // const isAuthenticated = useOutletContext();
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   return isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />;
 }
 function PublicRoutes() {
   // const isAuthenticated = useOutletContext();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   return isAuthenticated ? <Navigate to={"/"} /> : <Outlet />;
 }
