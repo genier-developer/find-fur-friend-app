@@ -12,6 +12,8 @@ import { useAppDispatch } from "../app/hooks.ts";
 import { AddNewPet } from "../components/AddNewPet.tsx";
 import { PetList } from "../components/PetList.tsx";
 import { fetchPets } from "../features/petSlice.ts";
+import {SignIn} from "../components/auth/SignIn.tsx";
+import {SignUp} from "../components/auth/SignUp.tsx";
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -66,6 +68,8 @@ export const HomePage = () => {
         ) : (
           <PetList />
         )}
+        <SignUp/>
+        <SignIn/>
       </Container>
     </>
   );
