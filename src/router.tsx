@@ -13,7 +13,7 @@ import { PetList } from "./components/PetList.tsx";
 import { SignIn } from "./components/auth/SignIn.tsx";
 import { SignUp } from "./components/auth/SignUp.tsx";
 import { Page404 } from "./components/auth/Page404.tsx";
-import { FavoritePetList } from "./components/FavoritePetList.tsx";
+import { FavoritePetList } from "./pages/FavoritePetList.tsx";
 import { AddNewPet } from "./components/AddNewPet.tsx";
 import { HomePage } from "./pages/HomePage.tsx";
 export const publicRoutes: RouteObject[] = [
@@ -36,18 +36,18 @@ export const publicRoutes: RouteObject[] = [
   },
   {
     element: <HomePage />,
-    path: "/homePage",
+    path: "/home",
   },
 ];
 
 const privateRoutes: RouteObject[] = [
   {
     element: <FavoritePetList />,
-    path: "/favoritePets",
+    path: "/favorites",
   },
   {
     element: <AddNewPet onClose={() => {}} />,
-    path: "/addPet",
+    path: "/add",
   },
 
   {

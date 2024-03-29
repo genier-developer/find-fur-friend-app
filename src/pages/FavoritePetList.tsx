@@ -4,7 +4,7 @@ import {selectFavoritePets} from "../features/petSlice.ts";
 import { useSelector } from "react-redux";
 import { Container, Grid, LinearProgress} from '@mui/material';
 import {Pet} from "../models/Pet.ts";
-import {PetItem} from "./PetItem.tsx";
+import {PetItem} from "../components/PetItem.tsx";
 
 export const FavoritePetList = () => {
   const favoritePets = useSelector(selectFavoritePets);

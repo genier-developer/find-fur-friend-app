@@ -14,28 +14,31 @@ import { PetList } from "../components/PetList.tsx";
 import {fetchPets, selectFavoritePets} from "../features/petSlice.ts";
 import {SignIn} from "../components/auth/SignIn.tsx";
 import {SignUp} from "../components/auth/SignUp.tsx";
-import {FavoritePetList} from "../components/FavoritePetList.tsx";
+import {FavoritePetList} from "./FavoritePetList.tsx";
 import {useSelector} from "react-redux";
 import Badge from '@mui/material/Badge';
 
 export const HomePage = () => {
+
   const dispatch = useAppDispatch();
+
   const favoritePets = useSelector(selectFavoritePets);
+
   const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(0);
+
   const handleHomeButtonClick = () => {
     setIsAddNewPetOpen(false);
   };
+
   useEffect(() => {
     dispatch(fetchPets());
   }, [dispatch]);
+
   useEffect(() => {
     setFavoriteCount(favoritePets.length);
   }, [favoritePets]);
 
-  const handleShowFavoritePets = () => {
-    // dispatch()
-  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -64,16 +67,16 @@ export const HomePage = () => {
             <Button color="inherit" onClick={() => setIsAddNewPetOpen(true)}>
               Add New Pet
             </Button>
-            <IconButton color="inherit" onClick={handleShowFavoritePets}>
-              {favoriteCount > 0 ? (
-                  <Badge badgeContent={favoriteCount} color="secondary">
+              <IconButton color="inherit" component={Link}
+                          to="/favorites">
+                {favoriteCount > 0 ? (
+                    <Badge badgeContent={favoriteCount} color="error">
+                      <FavoriteBorderOutlined />
+                    </Badge>
+                ) : (
                     <FavoriteBorderOutlined />
-                  </Badge>
-              ) : (
-                  <FavoriteBorderOutlined />
-              )}
-            </IconButton>
-            {/*<FavoriteBorderOutlined onClick={handleShowFavoritePets} />*/}
+                )}
+              </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
