@@ -51,7 +51,7 @@ export const SignIn = () => {
                   type={'password'}
                   id="outlined-basic-type"
                   size="small"
-                  placeholder={'Enter email'}
+                  placeholder={'Enter password'}
                   variant="outlined"
                   value={password}
                   onChange={(event)=> setPassword(event.target.value)}

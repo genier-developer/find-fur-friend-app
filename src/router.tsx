@@ -49,6 +49,7 @@ const privateRoutes: RouteObject[] = [
     element: <AddNewPet onClose={() => {}} />,
     path: "/addPet",
   },
+
   {
     element: <Page404 />,
     path: "/404",

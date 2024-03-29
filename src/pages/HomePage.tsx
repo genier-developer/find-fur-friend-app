@@ -11,19 +11,27 @@ import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { useAppDispatch } from "../app/hooks.ts";
 import { AddNewPet } from "../components/AddNewPet.tsx";
 import { PetList } from "../components/PetList.tsx";
-import { fetchPets } from "../features/petSlice.ts";
+import {fetchPets, selectFavoritePets} from "../features/petSlice.ts";
 import {SignIn} from "../components/auth/SignIn.tsx";
 import {SignUp} from "../components/auth/SignUp.tsx";
+import {FavoritePetList} from "../components/FavoritePetList.tsx";
+import {useSelector} from "react-redux";
+import Badge from '@mui/material/Badge';
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
+  const favoritePets = useSelector(selectFavoritePets);
   const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState(0);
   const handleHomeButtonClick = () => {
     setIsAddNewPetOpen(false);
   };
   useEffect(() => {
     dispatch(fetchPets());
   }, [dispatch]);
+  useEffect(() => {
+    setFavoriteCount(favoritePets.length);
+  }, [favoritePets]);
 
   const handleShowFavoritePets = () => {
     // dispatch()
@@ -56,7 +64,16 @@ export const HomePage = () => {
             <Button color="inherit" onClick={() => setIsAddNewPetOpen(true)}>
               Add New Pet
             </Button>
-            <FavoriteBorderOutlined onClick={handleShowFavoritePets} />
+            <IconButton color="inherit" onClick={handleShowFavoritePets}>
+              {favoriteCount > 0 ? (
+                  <Badge badgeContent={favoriteCount} color="secondary">
+                    <FavoriteBorderOutlined />
+                  </Badge>
+              ) : (
+                  <FavoriteBorderOutlined />
+              )}
+            </IconButton>
+            {/*<FavoriteBorderOutlined onClick={handleShowFavoritePets} />*/}
           </Toolbar>
         </AppBar>
       </Box>
@@ -70,6 +87,7 @@ export const HomePage = () => {
         )}
         <SignUp/>
         <SignIn/>
+        <FavoritePetList/>
       </Container>
     </>
   );

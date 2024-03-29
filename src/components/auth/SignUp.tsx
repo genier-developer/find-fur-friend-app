@@ -51,7 +51,7 @@ export const SignUp = () => {
                       type={'password'}
                       id="outlined-basic-type"
                       size="small"
-                      placeholder={'Enter email'}
+                      placeholder={'Enter password'}
                       variant="outlined"
                       value={password}
                       onChange={(event)=> setPassword(event.target.value)}
@@ -64,10 +64,6 @@ export const SignUp = () => {
                   </Link>
               </Container>
           </Card>
-        {/*<h1>Create an account</h1>*/}
-        {/*<input type={'email'} value={email} placeholder={'Enter email'} onChange={(event)=> setEmail(event.target.value)}/>*/}
-        {/*<input type={'password'} value={password} placeholder={'Enter password'} onChange={(event)=> setPassword(event.target.value)}/>*/}
-        {/*<button type={'submit'}>Sign up</button>*/}
       </form>
   );
 };

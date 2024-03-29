@@ -23,7 +23,7 @@ export const PetList = () => {
                 {pets.length === 0 && !isAddNewPetVisible && (
                     <Grid item xs={12} textAlign="center">
                         <Typography variant="h6" sx={{ marginTop: 4, marginBottom: 2 }}>
-                            В вашем приюте пока нет животных.
+                            There is no pets in the shelter.
                         </Typography>
                     </Grid>
                 )}
