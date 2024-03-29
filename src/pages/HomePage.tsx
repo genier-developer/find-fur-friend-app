@@ -17,6 +17,7 @@ import {SignUp} from "../components/auth/SignUp.tsx";
 import {FavoritePetList} from "./FavoritePetList.tsx";
 import {useSelector} from "react-redux";
 import Badge from '@mui/material/Badge';
+import {AuthDetails} from "../components/auth/AuthDetails.tsx";
 
 export const HomePage = () => {
 
@@ -41,6 +42,7 @@ export const HomePage = () => {
 
   return (
     <>
+      <AuthDetails/>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>

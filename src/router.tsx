@@ -33,11 +33,7 @@ export const publicRoutes: RouteObject[] = [
   {
     element: <Page404 />,
     path: "/404",
-  },
-  {
-    element: <HomePage />,
-    path: "/home",
-  },
+  }
 ];
 
 const privateRoutes: RouteObject[] = [
@@ -48,6 +44,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <AddNewPet onClose={() => {}} />,
     path: "/add",
+  },
+  {
+    element: <HomePage />,
+    path: "/",
   },
 
   {
@@ -61,8 +61,7 @@ const privateRoutes: RouteObject[] = [
 ];
 
 export const router = createBrowserRouter([
-  {
-    children: [
+
       {
         children: privateRoutes,
         element: <PrivateRoutes />,
@@ -71,15 +70,14 @@ export const router = createBrowserRouter([
         children: publicRoutes,
         element: <PublicRoutes />,
       },
-    ],
-    // element: <Layout />,
-    element: <HomePage />,
-  },
+
+
+
 ]);
 
 function PrivateRoutes() {
   // const isAuthenticated = useOutletContext();
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   return isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />;
 }
