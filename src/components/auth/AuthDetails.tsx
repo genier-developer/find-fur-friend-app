@@ -1,39 +1,43 @@
-import {useState, useEffect} from "react";
-import {auth} from '../../firebase.ts'
-import {onAuthStateChanged, signOut} from 'firebase/auth'
-import {User} from 'firebase/auth';
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+// features/AuthDetails.tsx
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { selectUser, setUser } from '@/features/authSlice'
+import { auth } from '@/firebase'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 export const AuthDetails = () => {
-    const [userAuth, setUserAuth] = useState<User| null>(null)
+  const dispatch = useDispatch()
+  const user = useSelector(selectUser)
 
-    const userSignOut = ()=>{
-        signOut(auth).then(()=>{
-            console.log('signed out successful')
-        }).catch(error => console.log(error))
-    }
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log('signed out successful')
+      })
+      .catch(error => console.log(error))
+  }
 
-    useEffect(()=>{
-        const isAuth = onAuthStateChanged(auth, (user)=>{
-            if(user){
-                setUserAuth(user)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      dispatch(setUser(user))
+    })
 
-                console.log(isAuth)
-            } else {
-                setUserAuth(null)
-            }
-        })
-        return ()=>isAuth()
-    }, [])
+    return () => unsubscribe()
+  }, [dispatch])
 
-    return (
-        <div>
-            {
-                userAuth ? <><Button onClick={userSignOut}>Sign Out</Button><Typography variant={'subtitle1'}>{`Signed in ${userAuth.email}`}</Typography></> : <Typography variant={'subtitle1'}>Not signed yet</Typography>
-            }
-
-        </div>
-    );
-};
+  return (
+    <div>
+      {user ? (
+        <>
+          <Button onClick={userSignOut}>Sign Out</Button>
+          <Typography variant={'subtitle1'}>{`Signed in ${user.email}`}</Typography>
+        </>
+      ) : (
+        <Typography variant={'subtitle1'}>Not signed yet</Typography>
+      )}
+    </div>
+  )
+}

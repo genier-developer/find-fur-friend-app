@@ -1,88 +1,84 @@
-import { useEffect, useState } from "react";
-import { Box, Container } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import { FavoriteBorderOutlined } from "@mui/icons-material";
-import { useAppDispatch } from "../app/hooks.ts";
-import { AddNewPet } from "../components/AddNewPet.tsx";
-import { PetList } from "../components/PetList.tsx";
-import {fetchPets, selectFavoritePets} from "../features/petSlice.ts";
-import {SignIn} from "../components/auth/SignIn.tsx";
-import {SignUp} from "../components/auth/SignUp.tsx";
-import {FavoritePetList} from "./FavoritePetList.tsx";
-import {useSelector} from "react-redux";
-import Badge from '@mui/material/Badge';
-import {AuthDetails} from "../components/auth/AuthDetails.tsx";
+import { useEffect, useState } from 'react'
+// import {FavoritePetList} from "./FavoritePetList.tsx";
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { useAppDispatch } from '@/app/hooks'
+import { AddNewPet } from '@/components/AddNewPet'
+import { Header } from '@/components/Header'
+import { PetList } from '@/components/PetList'
+// import { AuthDetails } from '@/components/auth/AuthDetails'
+import { SignIn } from '@/components/auth/SignIn'
+import { SignUp } from '@/components/auth/SignUp'
+import { fetchPets, selectFavoritePets } from '@/features/petSlice'
+import { FavoriteBorderOutlined } from '@mui/icons-material'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Box, Container } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Badge from '@mui/material/Badge'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
 export const HomePage = () => {
+  const dispatch = useAppDispatch()
 
-  const dispatch = useAppDispatch();
+  const favoritePets = useSelector(selectFavoritePets)
 
-  const favoritePets = useSelector(selectFavoritePets);
-
-  const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false);
-  const [favoriteCount, setFavoriteCount] = useState(0);
+  const [isAddNewPetOpen, setIsAddNewPetOpen] = useState(false)
+  const [favoriteCount, setFavoriteCount] = useState(0)
 
   const handleHomeButtonClick = () => {
-    setIsAddNewPetOpen(false);
-  };
+    setIsAddNewPetOpen(false)
+  }
 
   useEffect(() => {
-    dispatch(fetchPets());
-  }, [dispatch]);
+    dispatch(fetchPets())
+  }, [dispatch])
 
   useEffect(() => {
-    setFavoriteCount(favoritePets.length);
-  }, [favoritePets]);
+    setFavoriteCount(favoritePets.length)
+  }, [favoritePets])
 
   return (
     <>
-      <AuthDetails/>
+      <Header />
+      {/*<AuthDetails />*/}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position={'static'}>
           <Toolbar>
             <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
+              aria-label={'menu'}
+              color={'inherit'}
+              edge={'start'}
+              size={'large'}
               sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
               PET SHELTER
             </Typography>
-            <Button
-              component={Link}
-              to="/"
-              color="inherit"
-              onClick={handleHomeButtonClick}
-            >
+            <Button color={'inherit'} component={Link} onClick={handleHomeButtonClick} to={'/'}>
               Home
             </Button>
-            <Button color="inherit" onClick={() => setIsAddNewPetOpen(true)}>
+            <Button color={'inherit'} onClick={() => setIsAddNewPetOpen(true)}>
               Add New Pet
             </Button>
-              <IconButton color="inherit" component={Link}
-                          to="/favorites">
-                {favoriteCount > 0 ? (
-                    <Badge badgeContent={favoriteCount} color="error">
-                      <FavoriteBorderOutlined />
-                    </Badge>
-                ) : (
-                    <FavoriteBorderOutlined />
-                )}
-              </IconButton>
+            <IconButton color={'inherit'} component={Link} to={'/favorites'}>
+              {favoriteCount > 0 ? (
+                <Badge badgeContent={favoriteCount} color={'error'}>
+                  <FavoriteBorderOutlined />
+                </Badge>
+              ) : (
+                <FavoriteBorderOutlined />
+              )}
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
-      <Container sx={{ marginTop: 4, marginBottom: 4 }}>
+      <Container sx={{ marginBottom: 4, marginTop: 4 }}>
         {isAddNewPetOpen ? (
           <Container sx={{ marginTop: 14 }}>
             <AddNewPet onClose={() => setIsAddNewPetOpen(false)} />
@@ -90,10 +86,10 @@ export const HomePage = () => {
         ) : (
           <PetList />
         )}
-        <SignUp/>
-        <SignIn/>
-        <FavoritePetList/>
+        <SignUp />
+        <SignIn />
+        {/*<FavoritePetList/>*/}
       </Container>
     </>
-  );
-};
+  )
+}
