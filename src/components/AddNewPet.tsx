@@ -1,139 +1,153 @@
-import React, {useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import {useAppDispatch} from "../app/hooks.ts";
-import {addNewPet} from "../features/petSlice.ts";
-import {v1} from "uuid"
-import {Card, Container, FormControl, Typography} from "@mui/material";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
+import React, { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch } from '@/app/hooks'
+import { Header } from '@/components/Header'
+import { addNewPet } from '@/features/petSlice'
+import { Card, Container, FormControl, SelectChangeEvent, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
+import { v1 } from 'uuid'
 
-type AddNewPet = {
-    onClose: () => void
-};
+type AddNewPetProps = {
+  onClose: () => void
+}
 
-export const AddNewPet: React.FC<AddNewPet> = ({onClose}) => {
-    const [pet, setPet] = useState({
-        petType: '',
-        petName: '',
-        petAge: '',
-        petSex: '',
-        petWeight: '',
-        petImage: ''
-    })
-    const dispatch = useAppDispatch()
+export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
+  const [pet, setPet] = useState({
+    petAge: '',
+    petImage: '',
+    petName: '',
+    petSex: '',
+    petType: '',
+    petWeight: '',
+  })
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const newPet = {
+    age: +pet.petAge,
+    createdAt: new Date().toISOString(),
+    id: v1(),
+    image: '',
+    isAvailable: false,
+    name: pet.petName,
+    sex: pet.petSex,
+    type: pet.petType,
+    updatedAt: new Date().toISOString(),
+    weight: +pet.petWeight,
+  }
+  const handleAdd = () => {
+    dispatch(addNewPet(newPet))
+    console.log('closed')
+    navigate('/home')
+    // onClose()
+  }
+  const handleCancel = () => {
+    navigate('/home')
+    // onClose()
+  }
+  const onTextFieldChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>,
+    textfield: string
+  ) => {
+    setPet({ ...pet, [textfield]: e.target.value })
+  }
 
-    const newPet = {
-        id: v1(),
-        type: pet.petType,
-        name: pet.petName,
-        age: +pet.petAge,
-        sex: pet.petSex,
-        weight: +pet.petWeight,
-        isAvailable: false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        image: '', // Add the image URL
-    };
-    const handleAdd = () => {
-        console.log("add pet")
-        dispatch(addNewPet(newPet))
-        onClose()
-    }
-    const handleCancel = () => {
-        onClose()
-    }
+  return (
+    <>
+      <Header />
+      <Card
+        elevation={10}
+        sx={{
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: '35px',
+          maxWidth: 250,
+          padding: 5,
+          textAlign: 'center',
+        }}
+      >
+        <Typography variant={'h5'}>ADD NEW PET</Typography>
+        <Container sx={{ marginTop: 2 }}>
+          <TextField
+            id={'outlined-basic-type'}
+            label={'Name'}
+            onChange={e => onTextFieldChange(e, 'petName')}
+            size={'small'}
+            sx={{ marginBottom: 2 }}
+            value={pet.petName}
+            variant={'outlined'}
+          />
+          <TextField
+            id={'outlined-basic-type'}
+            label={'Age'}
+            onChange={e => onTextFieldChange(e, 'petAge')}
+            size={'small'}
+            sx={{ marginBottom: 2 }}
+            value={pet.petAge}
+            variant={'outlined'}
+          />
+          <TextField
+            id={'outlined-basic-type'}
+            label={'Weight, kg'}
+            onChange={e => onTextFieldChange(e, 'petWeight')}
+            size={'small'}
+            sx={{ marginBottom: 2 }}
+            value={pet.petWeight}
+            variant={'outlined'}
+          />
 
-    return (
-        <Card elevation={10}
-              sx={{
-                  marginTop: 'auto',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  maxWidth: 250,
-                  padding: 5,
-                  textAlign: 'center'
-              }}>
-            <Typography variant={"h5"}>ADD NEW PET</Typography>
-            <Container sx={{marginTop: 2}}>
-                <TextField
-                    sx={{marginBottom: 2}}
-                    id="outlined-basic-type"
-                    size="small"
-                    label="Name"
-                    variant="outlined"
-                    value={pet.petName}
-                    onChange={(e) => setPet({...pet, petName: e.target.value})}
-                />
-                <TextField
-                    sx={{marginBottom: 2}}
-                    id="outlined-basic-type"
-                    size="small"
-                    label="Age"
-                    variant="outlined"
-                    value={pet.petAge}
-                    onChange={(e) => setPet({...pet, petAge: e.target.value})}
-                />
-                <TextField
-                    sx={{marginBottom: 2}}
-                    id="outlined-basic-type"
-                    size="small"
-                    label="Weight, kg"
-                    variant="outlined"
-                    value={pet.petWeight}
-                    onChange={(e) => setPet({...pet, petWeight: e.target.value})}
-                />
+          <Box sx={{ alignSelf: 'left', display: 'flex', marginBottom: 2, textAlign: 'left' }}>
+            <FormControl fullWidth size={'small'} sx={{ paddingLeft: 0.5, paddingRight: 0.5 }}>
+              <InputLabel>Sex</InputLabel>
+              <Select
+                label={'Sex'}
+                onChange={e => onTextFieldChange(e, 'petSex')}
+                value={pet.petSex}
+              >
+                <MenuItem value={'male'}>Male</MenuItem>
+                <MenuItem value={'female'}>Female</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
 
-                <Box sx={{display: 'flex', alignSelf: 'left', marginBottom: 2, textAlign: 'left'}}>
-                    <FormControl size={'small'} fullWidth sx={{paddingRight: 0.5, paddingLeft: 0.5}}>
-                        <InputLabel>Sex</InputLabel>
-                        <Select
-                            value={pet.petSex}
-                            label="Sex"
-                            onChange={(e) => setPet({...pet, petSex: e.target.value})}
-                        >
-                            <MenuItem value={'male'}>Male</MenuItem>
-                            <MenuItem value={"female"}>Female</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
+          <Box sx={{ alignSelf: 'left', display: 'flex', marginBottom: 2, textAlign: 'left' }}>
+            <FormControl fullWidth size={'small'} sx={{ paddingLeft: 0.5, paddingRight: 0.5 }}>
+              <InputLabel>Type</InputLabel>
+              <Select
+                label={'Type'}
+                onChange={e => onTextFieldChange(e, 'petType')}
+                value={pet.petType}
+              >
+                <MenuItem value={'cat'}>Cat</MenuItem>
+                <MenuItem value={'dog'}>Dog</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
 
-                <Box sx={{display: 'flex', alignSelf: 'left', marginBottom: 2, textAlign: 'left'}}>
-                    <FormControl size={'small'} fullWidth sx={{paddingRight: 0.5, paddingLeft: 0.5}}>
-                        <InputLabel>Type</InputLabel>
-                        <Select
-                            value={pet.petType}
-                            label="Type"
-                            onChange={(e) => setPet({...pet, petType: e.target.value})}
-                        >
-                            <MenuItem value={'cat'}>Cat</MenuItem>
-                            <MenuItem value={"dog"}>Dog</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: "space-between",
-                    alignItems: 'center',
-                    marginTop: 5,
-                    paddingRight: 0.5,
-                    paddingLeft: 0.5
-                }}>
-                    <Button variant="contained" onClick={handleCancel}>
-                        Cancel
-                    </Button>
-                    <Button variant="contained" onClick={handleAdd}>
-                        Add
-                    </Button>
-                </Box>
-
-            </Container>
-        </Card>
-
-    );
-};
-
+          <Box
+            sx={{
+              alignItems: 'center',
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginTop: 5,
+              paddingLeft: 0.5,
+              paddingRight: 0.5,
+            }}
+          >
+            <Button onClick={handleCancel} variant={'contained'}>
+              Cancel
+            </Button>
+            <Button onClick={handleAdd} variant={'contained'}>
+              Add
+            </Button>
+          </Box>
+        </Container>
+      </Card>
+    </>
+  )
+}

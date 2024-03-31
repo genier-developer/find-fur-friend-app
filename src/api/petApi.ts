@@ -1,23 +1,9 @@
-// import { initializeApp } from "firebase/app";
 import { Pet } from "../models/Pet";
-// import { getDatabase } from "firebase/database";
+
 import { set, ref, remove, get } from "firebase/database";
-// import { getAuth } from "firebase/auth";
+
 import { database } from "../firebase.ts";
 
-// export const firebaseConfig = {
-//   apiKey: "AIzaSyAVxBJijswcwsg4DNsGtr53hdH07uAcxtA",
-//   authDomain: "pet-shelter-fa4be.firebaseapp.com",
-//   databaseURL: "https://pet-shelter-fa4be-default-rtdb.firebaseio.com/",
-//   projectId: "pet-shelter-fa4be",
-//   storageBucket: "pet-shelter-fa4be.appspot.com",
-//   messagingSenderId: "531819954511",
-//   appId: "1:531819954511:web:c1805dddcc60457c3f853a",
-// };
-//
-// export const app = initializeApp(firebaseConfig);
-// export const database = getDatabase();
-// export const auth = getAuth();
 
 export const fetchPetsFromFirebase = async (): Promise<Pet[]> => {
   const snapshot = await get(ref(database, "pets"));

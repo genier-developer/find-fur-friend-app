@@ -1,29 +1,32 @@
-// import {Pet} from "../models/Pet.ts";
-import {useAppSelector} from "../app/hooks.ts";
-import {selectFavoritePets} from "../features/petSlice.ts";
-import { useSelector } from "react-redux";
-import { Container, Grid, LinearProgress} from '@mui/material';
-import {Pet} from "../models/Pet.ts";
-import {PetItem} from "../components/PetItem.tsx";
+import { useSelector } from 'react-redux'
+
+import { useAppSelector } from '@/app/hooks'
+import { Header } from '@/components/Header'
+import { PetItem } from '@/components/PetItem'
+import { selectFavoritePets } from '@/features/petSlice'
+import { Pet } from '@/models/Pet'
+import { Container, Grid, LinearProgress } from '@mui/material'
 
 export const FavoritePetList = () => {
-  const favoritePets = useSelector(selectFavoritePets);
-    const isLoading = useAppSelector(state => state.pet.isLoading);
+  const favoritePets = useSelector(selectFavoritePets)
+  const isLoading = useAppSelector(state => state.pet.isLoading)
 
-    if (isLoading) {
-        return <LinearProgress />;
-    }
+  if (isLoading) {
+    return <LinearProgress />
+  }
+
   return (
-      <Container>
-          <Grid container spacing={5} justifyContent="center" alignItems="center">
-
-                  {favoritePets.map((pet: Pet) => (
-                      <Grid item key={pet.id}>
-                          <PetItem pet={pet} />
-                      </Grid>
-                  ))}
-
-          </Grid>
+    <>
+      <Header />
+      <Container sx={{ marginTop: '35px' }}>
+        <Grid alignItems={'center'} container justifyContent={'center'} spacing={5}>
+          {favoritePets.map((pet: Pet) => (
+            <Grid item key={pet.id}>
+              <PetItem pet={pet} />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
-  );
-};
+    </>
+  )
+}
