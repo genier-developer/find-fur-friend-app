@@ -1,12 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { RootState } from '@/app/store'
 import { setUser, signOutUser } from '@/features/authSlice'
+import { selectFavoritePets } from '@/features/petSlice'
 import { auth } from '@/firebase'
+import { FavoriteBorderOutlined } from '@mui/icons-material'
 import { Box } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
+import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,8 +17,17 @@ import Typography from '@mui/material/Typography'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 export const Header = () => {
+  const favoritePets = useSelector(selectFavoritePets)
   const currentUser = useSelector((state: RootState) => state.auth.currentUser)
   const dispatch = useDispatch()
+  const [favoriteCount, setFavoriteCount] = useState(0)
+
+  const image = 'src/assets/images/pet-svgrepo-logo-header.svg'
+
+  useEffect(() => {
+    setFavoriteCount(favoritePets.length)
+  }, [favoritePets])
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -38,7 +50,6 @@ export const Header = () => {
       listen()
     }
   }, [])
-  const image = 'src/assets/images/pet-svgrepo-logo-header.svg'
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -58,12 +69,21 @@ export const Header = () => {
           </Typography>
           {currentUser ? (
             <>
+              <Button color={'inherit'} component={Link} to={'/'}>
+                HOME
+              </Button>
               <Button color={'inherit'} component={Link} to={'/add'}>
                 ADD NEW PET
               </Button>
-              <Button color={'inherit'} component={Link} to={'/favorites'}>
-                Favorites
-              </Button>
+              <IconButton color={'inherit'} component={Link} to={'/favorites'}>
+                {favoriteCount > 0 ? (
+                  <Badge badgeContent={favoriteCount} color={'error'}>
+                    <FavoriteBorderOutlined />
+                  </Badge>
+                ) : (
+                  <FavoriteBorderOutlined />
+                )}
+              </IconButton>
               <Button color={'inherit'} onClick={handleSignOut}>
                 SIGN OUT
               </Button>
@@ -74,27 +94,6 @@ export const Header = () => {
               Sign In
             </Button>
           )}
-          {/*<Button*/}
-          {/*  color={'inherit'}*/}
-          {/*  component={Link}*/}
-          {/*  to={'/login'}*/}
-          {/*  // onClick={handleHomeButtonClick}*/}
-          {/*>*/}
-          {/*  Sign In*/}
-          {/*</Button>*/}
-          {/*<Button color="inherit" onClick={() => setIsAddNewPetOpen(true)}>*/}
-          {/*    Add New Pet*/}
-          {/*</Button>*/}
-          {/*<IconButton color="inherit" component={Link}*/}
-          {/*            to="/favorites">*/}
-          {/*    {favoriteCount > 0 ? (*/}
-          {/*        <Badge badgeContent={favoriteCount} color="error">*/}
-          {/*            <FavoriteBorderOutlined />*/}
-          {/*        </Badge>*/}
-          {/*    ) : (*/}
-          {/*        <FavoriteBorderOutlined />*/}
-          {/*    )}*/}
-          {/*</IconButton>*/}
         </Toolbar>
       </AppBar>
     </Box>

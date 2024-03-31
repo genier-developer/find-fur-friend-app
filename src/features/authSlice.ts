@@ -20,7 +20,6 @@ const authSlice = createSlice({
       state.error = action.payload
     },
     setUser: (state, action: PayloadAction<User | null>) => {
-      debugger
       state.currentUser = action.payload
       state.error = null
     },

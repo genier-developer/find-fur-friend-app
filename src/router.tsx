@@ -55,15 +55,6 @@ const privateRoutes: RouteObject[] = [
     element: <HomePage />,
     path: '/',
   },
-
-  {
-    element: <Page404 />,
-    path: '/404',
-  },
-  {
-    element: <Navigate to={'/404'} />,
-    path: '/*',
-  },
 ]
 
 export const router = createBrowserRouter([
@@ -74,6 +65,14 @@ export const router = createBrowserRouter([
   {
     children: publicRoutes,
     element: <PublicRoutes />,
+  },
+  {
+    element: <Page404 />,
+    path: '/404',
+  },
+  {
+    element: <Navigate to={'/404'} />,
+    path: '/*',
   },
 ])
 
