@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import {
   Navigate,
   Outlet,
@@ -7,16 +8,16 @@ import {
   // useOutletContext,
 } from 'react-router-dom'
 
-// import { Layout } from "./Layout";
+import { selectUser } from '@/features/authSlice'
 
 import { AddNewPet } from './components/AddNewPet'
+import { Header } from './components/Header'
 import { PetList } from './components/PetList'
 import { Page404 } from './components/auth/Page404'
 import { SignIn } from './components/auth/SignIn'
 import { SignUp } from './components/auth/SignUp'
 import { FavoritePetList } from './pages/FavoritePetList'
 import { HomePage } from './pages/HomePage'
-
 export const publicRoutes: RouteObject[] = [
   {
     element: <SignIn />,
@@ -34,6 +35,10 @@ export const publicRoutes: RouteObject[] = [
   {
     element: <Page404 />,
     path: '/404',
+  },
+  {
+    element: <Header />,
+    path: '/',
   },
 ]
 
@@ -73,16 +78,14 @@ export const router = createBrowserRouter([
 ])
 
 function PrivateRoutes() {
-  // const isAuthenticated = useOutletContext();
-  const isAuthenticated = true
+  const currentUser = useSelector(selectUser)
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  return currentUser ? <Outlet /> : <Navigate to={'/login'} />
 }
 function PublicRoutes() {
-  // const isAuthenticated = useOutletContext();
-  const isAuthenticated = true
+  const currentUser = useSelector(selectUser)
 
-  return isAuthenticated ? <Navigate to={'/'} /> : <Outlet />
+  return currentUser ? <Navigate to={'/'} /> : <Outlet />
 }
 
 export const Router = () => {

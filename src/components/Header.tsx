@@ -1,22 +1,43 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { RootState } from '@/app/store'
-import { signOutUser } from '@/features/authSlice'
+import { setUser, signOutUser } from '@/features/authSlice'
+import { auth } from '@/firebase'
 import { Box } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 export const Header = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser)
   const dispatch = useDispatch()
-
   const handleSignOut = () => {
-    dispatch(signOutUser())
+    signOut(auth)
+      .then(() => {
+        dispatch(signOutUser())
+        console.log('signed out successful')
+      })
+      .catch(error => console.log(error))
   }
+
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, user => {
+      if (user) {
+        dispatch(setUser(user))
+      } else {
+        dispatch(setUser(null))
+      }
+    })
+
+    return () => {
+      listen()
+    }
+  }, [])
   const image = 'src/assets/images/pet-svgrepo-logo-header.svg'
 
   return (
@@ -79,62 +100,3 @@ export const Header = () => {
     </Box>
   )
 }
-
-// import { useSelector, useDispatch } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import { signOutUser } from '../features/authSlice.ts';
-// import {RootState} from "../app/store.ts";
-// import AppBar from "@mui/material/AppBar";
-// import Toolbar from "@mui/material/Toolbar";
-// import IconButton from "@mui/material/IconButton";
-//
-// import Typography from "@mui/material/Typography";
-// import Button from "@mui/material/Button";
-//
-// import {Box} from "@mui/material";
-// export const Header = () => {
-//     const currentUser = useSelector((state: RootState) => state.auth.currentUser);
-//     const dispatch = useDispatch();
-//
-//     const handleSignOut = () => {
-//         dispatch(signOutUser());
-//     };
-//     const image = 'src/assets/images/pet-svgrepo-logo-header.svg'
-//     return (
-//             <Box sx={{ flexGrow: 1}}>
-//                 <AppBar position="static">
-//                     <Toolbar>
-//                         <IconButton
-//                             size="large"
-//                             edge="start"
-//                             color="inherit"
-//                             aria-label="menu"
-//                             sx={{ mr: 2 }}
-//                         >
-//                             <img src={image} alt={'logo'} width={'32px'}/>
-//                         </IconButton>
-//                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-//                             PET SHELTER
-//                         </Typography>
-//                         <Button
-//                             component={Link}
-//                             to="/pets"
-//                             color="inherit"
-//                         >   Home
-//                         </Button>
-//                         <>
-//                             {currentUser ? (
-//                                 <>
-//                                     <Button component={Link} to="/add" color="inherit">ADD NEW PET</Button>
-//                                     <Button component={Link} color="inherit" to="/favorites">Favorites</Button>
-//                                     <Button color="inherit" onClick={handleSignOut}>SIGN OUT</Button>
-//                                 </>
-//                             ) : (
-//                                 <Link to="/login">Sign In</Link>
-//                             )}
-//                         </>
-//                     </Toolbar>
-//                 </AppBar>
-//             </Box>
-//     );
-// };

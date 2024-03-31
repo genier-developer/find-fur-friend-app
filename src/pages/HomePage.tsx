@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/app/hooks'
 import { AddNewPet } from '@/components/AddNewPet'
 import { Header } from '@/components/Header'
 import { PetList } from '@/components/PetList'
+import { AuthDetails } from '@/components/auth/AuthDetails'
 // import { AuthDetails } from '@/components/auth/AuthDetails'
 import { SignIn } from '@/components/auth/SignIn'
 import { SignUp } from '@/components/auth/SignUp'
@@ -44,7 +45,7 @@ export const HomePage = () => {
   return (
     <>
       <Header />
-      {/*<AuthDetails />*/}
+      <AuthDetails />
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position={'static'}>
           <Toolbar>

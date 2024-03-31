@@ -1,12 +1,12 @@
 // features/AuthDetails.tsx
-import { useEffect } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectUser, setUser } from '@/features/authSlice'
+import { selectUser, signOutUser } from '@/features/authSlice'
 import { auth } from '@/firebase'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 
 export const AuthDetails = () => {
   const dispatch = useDispatch()
@@ -15,18 +15,11 @@ export const AuthDetails = () => {
   const userSignOut = () => {
     signOut(auth)
       .then(() => {
+        dispatch(signOutUser())
         console.log('signed out successful')
       })
       .catch(error => console.log(error))
   }
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      dispatch(setUser(user))
-    })
-
-    return () => unsubscribe()
-  }, [dispatch])
 
   return (
     <div>
