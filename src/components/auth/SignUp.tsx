@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { Header } from '@/components/Header'
 import { auth } from '@/firebase'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -41,66 +42,69 @@ export const SignUp = () => {
   // };
 
   return (
-    <form onSubmit={onSubmit}>
-      <Card
-        elevation={10}
-        sx={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          marginTop: 'auto',
-          maxWidth: 250,
-          padding: 5,
-          textAlign: 'center',
-        }}
-      >
-        <Typography variant={'h5'}>Create an account</Typography>
-        <Container sx={{ marginTop: 2 }}>
-          <TextField
-            id={'outlined-basic-type'}
-            onChange={event => setEmail(event.target.value)}
-            placeholder={'Enter email'}
-            size={'small'}
-            sx={{ marginBottom: 2 }}
-            type={'email'}
-            value={email}
-            variant={'outlined'}
-          />
-          <TextField
-            id={'outlined-basic-type'}
-            onChange={event => setPassword(event.target.value)}
-            placeholder={'Enter password'}
-            size={'small'}
-            sx={{ marginBottom: 2 }}
-            type={'password'}
-            value={password}
-            variant={'outlined'}
-          />
-          {/*<FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">*/}
-          {/*    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>*/}
-          {/*    <OutlinedInput*/}
-          {/*        id="outlined-adornment-password"*/}
-          {/*        type={showPassword ? 'text' : 'password'}*/}
-          {/*        onChange={(event)=> setPassword(event.target.value)}*/}
-          {/*        endAdornment={*/}
-          {/*            <InputAdornment position="end">*/}
-          {/*                <IconButton*/}
-          {/*                    aria-label="toggle password visibility"*/}
-          {/*                    onClick={handleClickShowPassword}*/}
-          {/*                    onMouseDown={handleMouseDownPassword}*/}
-          {/*                    edge="end"*/}
-          {/*                >*/}
-          {/*                    {showPassword ? <VisibilityOff /> : <Visibility />}*/}
-          {/*                </IconButton>*/}
-          {/*            </InputAdornment>*/}
-          {/*        }*/}
-          {/*        label="Password"*/}
-          {/*    />*/}
-          {/*</FormControl>*/}
-          <Button type={'submit'}>Sign Up</Button>
-          <Typography>Already have an account?</Typography>
-          <Link href={'/login'}>Sign In</Link>
-        </Container>
-      </Card>
-    </form>
+    <>
+      <Header />
+      <form onSubmit={onSubmit}>
+        <Card
+          elevation={10}
+          sx={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: '35px',
+            maxWidth: 250,
+            padding: 5,
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant={'h5'}>Create an account</Typography>
+          <Container sx={{ marginTop: 2 }}>
+            <TextField
+              id={'outlined-basic-type'}
+              onChange={event => setEmail(event.target.value)}
+              placeholder={'Enter email'}
+              size={'small'}
+              sx={{ marginBottom: 2 }}
+              type={'email'}
+              value={email}
+              variant={'outlined'}
+            />
+            <TextField
+              id={'outlined-basic-type'}
+              onChange={event => setPassword(event.target.value)}
+              placeholder={'Enter password'}
+              size={'small'}
+              sx={{ marginBottom: 2 }}
+              type={'password'}
+              value={password}
+              variant={'outlined'}
+            />
+            {/*<FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">*/}
+            {/*    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>*/}
+            {/*    <OutlinedInput*/}
+            {/*        id="outlined-adornment-password"*/}
+            {/*        type={showPassword ? 'text' : 'password'}*/}
+            {/*        onChange={(event)=> setPassword(event.target.value)}*/}
+            {/*        endAdornment={*/}
+            {/*            <InputAdornment position="end">*/}
+            {/*                <IconButton*/}
+            {/*                    aria-label="toggle password visibility"*/}
+            {/*                    onClick={handleClickShowPassword}*/}
+            {/*                    onMouseDown={handleMouseDownPassword}*/}
+            {/*                    edge="end"*/}
+            {/*                >*/}
+            {/*                    {showPassword ? <VisibilityOff /> : <Visibility />}*/}
+            {/*                </IconButton>*/}
+            {/*            </InputAdornment>*/}
+            {/*        }*/}
+            {/*        label="Password"*/}
+            {/*    />*/}
+            {/*</FormControl>*/}
+            <Button type={'submit'}>Sign Up</Button>
+            <Typography>Already have an account?</Typography>
+            <Link href={'/login'}>Sign In</Link>
+          </Container>
+        </Card>
+      </form>
+    </>
   )
 }
