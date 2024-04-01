@@ -31,7 +31,6 @@ export const PetList = () => {
         {isAddNewPetVisible ? (
           <AddNewPet
             onClose={() => {
-              console.log('hello, pet world')
               setIsAddNewPetVisible(false)
             }}
           />

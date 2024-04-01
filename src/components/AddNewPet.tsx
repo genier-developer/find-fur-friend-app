@@ -42,19 +42,16 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
   }
   const handleAdd = () => {
     dispatch(addNewPet(newPet))
-    console.log('closed')
     navigate('/home')
-    // onClose()
   }
   const handleCancel = () => {
     navigate('/home')
-    // onClose()
   }
   const onTextFieldChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>,
-    textfield: string
+    textField: string
   ) => {
-    setPet({ ...pet, [textfield]: e.target.value })
+    setPet({ ...pet, [textField]: e.target.value })
   }
 
   return (

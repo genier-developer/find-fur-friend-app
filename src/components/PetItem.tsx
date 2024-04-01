@@ -106,19 +106,18 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { FavoriteBorderOutlined, FavoriteOutlined } from '@mui/icons-material'
-import { Card, CardActions, CardContent, CardMedia, TextField, Typography } from '@mui/material'
-import Button from '@mui/material/Button'
-
-import { useAppDispatch } from '../app/hooks'
+import { useAppDispatch } from '@/app/hooks'
 import {
   addFavoritePet,
   deleteFavoritePet,
   removePet,
   selectFavoritePets,
   updatePet,
-} from '../features/petSlice'
-import { Pet } from '../models/Pet'
+} from '@/features/petSlice'
+import { Pet } from '@/models/Pet'
+import { FavoriteBorderOutlined, FavoriteOutlined } from '@mui/icons-material'
+import { Card, CardActions, CardContent, CardMedia, TextField, Typography } from '@mui/material'
+import Button from '@mui/material/Button'
 
 export type PetItemProps = {
   pet: Pet
