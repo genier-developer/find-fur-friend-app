@@ -42,19 +42,16 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
   }
   const handleAdd = () => {
     dispatch(addNewPet(newPet))
-    console.log('closed')
     navigate('/home')
-    // onClose()
   }
   const handleCancel = () => {
     navigate('/home')
-    // onClose()
   }
   const onTextFieldChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>,
-    textfield: string
+    textField: string
   ) => {
-    setPet({ ...pet, [textfield]: e.target.value })
+    setPet({ ...pet, [textField]: e.target.value })
   }
 
   return (
@@ -66,7 +63,7 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
           marginLeft: 'auto',
           marginRight: 'auto',
           marginTop: '35px',
-          maxWidth: 250,
+          maxWidth: 350,
           padding: 5,
           textAlign: 'center',
         }}
@@ -74,6 +71,7 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
         <Typography variant={'h5'}>ADD NEW PET</Typography>
         <Container sx={{ marginTop: 2 }}>
           <TextField
+            fullWidth
             id={'outlined-basic-type'}
             label={'Name'}
             onChange={e => onTextFieldChange(e, 'petName')}
@@ -83,6 +81,7 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
             variant={'outlined'}
           />
           <TextField
+            fullWidth
             id={'outlined-basic-type'}
             label={'Age'}
             onChange={e => onTextFieldChange(e, 'petAge')}
@@ -92,6 +91,7 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
             variant={'outlined'}
           />
           <TextField
+            fullWidth
             id={'outlined-basic-type'}
             label={'Weight, kg'}
             onChange={e => onTextFieldChange(e, 'petWeight')}

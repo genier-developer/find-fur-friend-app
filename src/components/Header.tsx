@@ -90,9 +90,14 @@ export const Header = () => {
               <Typography variant={'caption'}>{`${currentUser.email}`}</Typography>
             </>
           ) : (
-            <Button color={'inherit'} component={Link} to={'/login'}>
-              Sign In
-            </Button>
+            <>
+              <Button color={'inherit'} component={Link} to={'/'}>
+                HOME
+              </Button>
+              <Button color={'inherit'} component={Link} to={'/login'}>
+                Sign In
+              </Button>
+            </>
           )}
         </Toolbar>
       </AppBar>

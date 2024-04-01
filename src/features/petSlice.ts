@@ -1,13 +1,12 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
 import {
   addPetToFirebase,
   fetchPetsFromFirebase,
   removePetFromFirebase,
   updatePetToFirebase,
-} from '../api/petApi.ts'
-import { AppDispatch, RootState } from '../app/store'
-import { Pet, PetState } from '../models/Pet'
+} from '@/api/petApi'
+import { AppDispatch, RootState } from '@/app/store'
+import { Pet, PetState } from '@/models/Pet'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export const initialState: PetState = {
   favoritePets: [],
@@ -75,5 +74,4 @@ export const { addFavoritePet, addPet, deleteFavoritePet, deletePet, setPets, up
   petSlice.actions
 export const petReducer = petSlice.reducer
 export const selectPets = (state: RootState) => state.pet.pets
-// export const selectFavoritePetsByFilter = (state: RootState)=> state.pet.pets.filter(pet=>pet.isFavorite)
 export const selectFavoritePets = (state: RootState) => state.pet.favoritePets

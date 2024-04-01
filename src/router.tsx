@@ -11,14 +11,18 @@ import {
 import { selectUser } from '@/features/authSlice'
 
 import { AddNewPet } from './components/AddNewPet'
-import { Header } from './components/Header'
-import { PetList } from './components/PetList'
 import { Page404 } from './components/auth/Page404'
 import { SignIn } from './components/auth/SignIn'
 import { SignUp } from './components/auth/SignUp'
 import { FavoritePetList } from './pages/FavoritePetList'
 import { HomePage } from './pages/HomePage'
-export const publicRoutes: RouteObject[] = [
+
+const publicRoutes: RouteObject[] = [
+  {
+    element: <HomePage />,
+    index: true,
+    path: '/',
+  },
   {
     element: <SignIn />,
     path: '/login',
@@ -26,19 +30,6 @@ export const publicRoutes: RouteObject[] = [
   {
     element: <SignUp />,
     path: '/signup',
-  },
-  {
-    element: <PetList />,
-    path: '/pets',
-  },
-
-  {
-    element: <Page404 />,
-    path: '/404',
-  },
-  {
-    element: <Header />,
-    path: '/',
   },
 ]
 
@@ -50,10 +41,6 @@ const privateRoutes: RouteObject[] = [
   {
     element: <AddNewPet onClose={() => {}} />,
     path: '/add',
-  },
-  {
-    element: <HomePage />,
-    path: '/',
   },
 ]
 
@@ -72,7 +59,7 @@ export const router = createBrowserRouter([
   },
   {
     element: <Navigate to={'/404'} />,
-    path: '/*',
+    path: '*',
   },
 ])
 
@@ -82,11 +69,21 @@ function PrivateRoutes() {
   return currentUser ? <Outlet /> : <Navigate to={'/login'} />
 }
 function PublicRoutes() {
-  const currentUser = useSelector(selectUser)
-
-  return currentUser ? <Navigate to={'/'} /> : <Outlet />
+  return <Outlet />
 }
 
 export const Router = () => {
   return <RouterProvider router={router} />
 }
+
+//
+//
+// const privateRoutes1 =
+//     privateRoutes.map((route) =>  {
+//       return {
+//         ...route,
+//         element: (
+//             <AuthGuard>{route.element}</AuthGuard>
+//         )
+//       }
+//     })

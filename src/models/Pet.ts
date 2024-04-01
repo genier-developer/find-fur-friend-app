@@ -1,21 +1,19 @@
 // src/models/Pet.ts
 export interface Pet {
-    id: string;
-    type: string;
-    name: string;
-    age: number;
-    sex: string;
-    weight: number;
-    isAvailable: boolean;
-    createdAt: string;
-    updatedAt: string;
-    image: string;
-    isFavorite?: boolean
+  age: number
+  createdAt: string
+  id: string
+  image: string
+  isAvailable: boolean
+  isFavorite?: boolean
+  name: string
+  sex: string
+  type: string
+  updatedAt: string
+  weight: number
 }
 export interface PetState {
-    pets: Pet[];
-    // favoritePets: string[];
-    favoritePets: Pet[];
-    isLoading: boolean;
+  favoritePets: Pet[]
+  isLoading: boolean
+  pets: Pet[]
 }
-
