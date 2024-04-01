@@ -62,26 +62,6 @@ export const SignIn = () => {
         >
           <Typography variant={'h5'}>Sign In</Typography>
           <Container sx={{ marginTop: 2 }}>
-            {/*<TextField*/}
-            {/*  id={'outlined-basic-type'}*/}
-            {/*  onChange={event => setEmail(event.target.value)}*/}
-            {/*  placeholder={'Enter email'}*/}
-            {/*  size={'small'}*/}
-            {/*  sx={{ marginBottom: 2 }}*/}
-            {/*  type={'email'}*/}
-            {/*  value={email}*/}
-            {/*  variant={'outlined'}*/}
-            {/*/>*/}
-            {/*<TextField*/}
-            {/*  id={'outlined-basic-type'}*/}
-            {/*  onChange={event => setPassword(event.target.value)}*/}
-            {/*  placeholder={'Enter password'}*/}
-            {/*  size={'small'}*/}
-            {/*  sx={{ marginBottom: 2 }}*/}
-            {/*  type={'password'}*/}
-            {/*  value={password}*/}
-            {/*  variant={'outlined'}*/}
-            {/*/>*/}
             <FormControl size={'small'} sx={{ m: 1, width: '25ch' }} variant={'outlined'}>
               <InputLabel htmlFor={'outlined-adornment-email'}>Email</InputLabel>
               <OutlinedInput

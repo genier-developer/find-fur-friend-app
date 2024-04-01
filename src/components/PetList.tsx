@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useAppSelector } from '@/app/hooks'
 import { selectPets } from '@/features/petSlice'
 import { Pet } from '@/models/Pet'
-import { Container, Grid, LinearProgress, Typography } from '@mui/material'
+import { CircularProgress, Container, Grid, Typography } from '@mui/material'
 
 import { AddNewPet } from './AddNewPet'
 import { PetItem } from './PetItem'
@@ -15,13 +15,13 @@ export const PetList = () => {
   const [isAddNewPetVisible, setIsAddNewPetVisible] = useState(false)
 
   if (isLoading) {
-    return <LinearProgress />
+    return <CircularProgress />
   }
 
   return (
     <Container>
-      <Grid alignItems={'center'} container justifyContent={'center'} spacing={5}>
-        {pets.length === 0 && !isAddNewPetVisible && (
+      <Grid alignItems={'center'} container justifyContent={'center'} marginBottom={5} spacing={5}>
+        {pets.length === 0 && !isAddNewPetVisible && isLoading && (
           <Grid item textAlign={'center'} xs={12}>
             <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
               There is no pets in the shelter.
