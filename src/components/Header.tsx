@@ -7,6 +7,7 @@ import { setUser, signOutUser } from '@/features/authSlice'
 import { selectFavoritePets } from '@/features/petSlice'
 import { auth } from '@/firebase'
 import { FavoriteBorderOutlined } from '@mui/icons-material'
+import PetsIcon from '@mui/icons-material/Pets'
 import { Box } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Badge from '@mui/material/Badge'
@@ -21,8 +22,6 @@ export const Header = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser)
   const dispatch = useDispatch()
   const [favoriteCount, setFavoriteCount] = useState(0)
-
-  const image = 'src/assets/images/pet-svgrepo-logo-header.svg'
 
   useEffect(() => {
     setFavoriteCount(favoritePets.length)
@@ -62,7 +61,7 @@ export const Header = () => {
             size={'large'}
             sx={{ mr: 2 }}
           >
-            <img alt={'logo'} src={image} width={'32px'} />
+            <PetsIcon viewBox={'0 0 24 24'} />
           </IconButton>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
             PET SHELTER
