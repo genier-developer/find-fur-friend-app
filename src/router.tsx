@@ -39,7 +39,7 @@ const privateRoutes: RouteObject[] = [
     path: '/favorites',
   },
   {
-    element: <AddNewPet onClose={() => {}} />,
+    element: <AddNewPet />,
     path: '/add',
   },
 ]

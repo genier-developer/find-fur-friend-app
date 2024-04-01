@@ -13,11 +13,9 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { v1 } from 'uuid'
 
-type AddNewPetProps = {
-  onClose: () => void
-}
+type AddNewPetProps = {}
 
-export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
+export const AddNewPet: React.FC<AddNewPetProps> = () => {
   const [pet, setPet] = useState({
     petAge: '',
     petImage: '',
@@ -42,10 +40,10 @@ export const AddNewPet: React.FC<AddNewPetProps> = ({ onClose }) => {
   }
   const handleAdd = () => {
     dispatch(addNewPet(newPet))
-    navigate('/home')
+    navigate('/')
   }
   const handleCancel = () => {
-    navigate('/home')
+    navigate('/')
   }
   const onTextFieldChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>,
