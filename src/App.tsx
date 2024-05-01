@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { Router } from './router'
 
-export const App: React.FC = () => {
+export const App = () => {
   return (
     <Provider store={store}>
       <Router />
