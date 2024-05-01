@@ -75,15 +75,3 @@ function PublicRoutes() {
 export const Router = () => {
   return <RouterProvider router={router} />
 }
-
-//
-//
-// const privateRoutes1 =
-//     privateRoutes.map((route) =>  {
-//       return {
-//         ...route,
-//         element: (
-//             <AuthGuard>{route.element}</AuthGuard>
-//         )
-//       }
-//     })
