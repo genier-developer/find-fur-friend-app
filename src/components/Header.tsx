@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { RootState } from '@/app/store'
-import { setUser, signOutUser } from '@/features/authSlice'
+import { selectUser, setUser, signOutUser } from '@/features/authSlice'
 import { selectFavoritePets } from '@/features/petSlice'
 import { auth } from '@/firebase'
 import { FavoriteBorderOutlined } from '@mui/icons-material'
@@ -19,7 +18,8 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 export const Header = () => {
   const favoritePets = useSelector(selectFavoritePets)
-  const currentUser = useSelector((state: RootState) => state.auth.currentUser)
+  const currentUser = useSelector(selectUser)
+  // const currentUser = useSelector((state: RootState) => state.auth.currentUser)
   const dispatch = useDispatch()
   const [favoriteCount, setFavoriteCount] = useState(0)
 
@@ -48,7 +48,7 @@ export const Header = () => {
     return () => {
       listen()
     }
-  }, [])
+  })
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -64,7 +64,7 @@ export const Header = () => {
             <PetsIcon viewBox={'0 0 24 24'} />
           </IconButton>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
-            PET SHELTER
+            Save a life
           </Typography>
           {currentUser ? (
             <>
@@ -86,7 +86,7 @@ export const Header = () => {
               <Button color={'inherit'} onClick={handleSignOut}>
                 SIGN OUT
               </Button>
-              <Typography variant={'caption'}>{`${currentUser.email}`}</Typography>
+              {/*<Typography variant={'body1'}>{`as ${currentUser.email}`}</Typography>*/}
             </>
           ) : (
             <>

@@ -1,21 +1,19 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getDatabase } from 'firebase/database'
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyAVxBJijswcwsg4DNsGtr53hdH07uAcxtA",
-  authDomain: "pet-shelter-fa4be.firebaseapp.com",
-  databaseURL: "https://pet-shelter-fa4be-default-rtdb.firebaseio.com",
-  projectId: "pet-shelter-fa4be",
-  storageBucket: "pet-shelter-fa4be.appspot.com",
-  messagingSenderId: "531819954511",
-  appId: "1:531819954511:web:c1805dddcc60457c3f853a",
-};
+  apiKey: 'AIzaSyAVxBJijswcwsg4DNsGtr53hdH07uAcxtA',
+  appId: '1:531819954511:web:c1805dddcc60457c3f853a',
+  authDomain: 'pet-shelter-fa4be.firebaseapp.com',
+  databaseURL: 'https://pet-shelter-fa4be-default-rtdb.firebaseio.com',
+  messagingSenderId: '531819954511',
+  projectId: 'pet-shelter-fa4be',
+  storageBucket: 'pet-shelter-fa4be.appspot.com',
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase();
-const auth = getAuth();
+const app = initializeApp(firebaseConfig)
+const database = getDatabase()
+const auth = getAuth()
 
-export { app, database, auth };
+export { app, auth, database }

@@ -12,7 +12,7 @@ export const Page404 = () => {
       <Typography sx={{ marginBottom: 2, marginTop: 2 }} variant={'h1'}>
         404
       </Typography>
-      <Button color={'inherit'} component={Link} href={'/'} variant={'contained'}>
+      <Button color={'primary'} component={Link} href={'/'} variant={'outlined'}>
         BACK HOME
       </Button>
     </div>

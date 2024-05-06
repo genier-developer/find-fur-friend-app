@@ -15,34 +15,49 @@ export const initialState: PetState = {
 }
 
 export const fetchPets = () => async (dispatch: AppDispatch) => {
-  const pets = await fetchPetsFromFirebase()
+  try {
+    const pets = await fetchPetsFromFirebase()
 
-  dispatch(setPets(pets))
+    dispatch(setPets(pets))
+  } catch (error) {
+    // Handle error
+  }
 }
 
 export const addNewPet = (newPet: Pet) => async (dispatch: AppDispatch) => {
-  const addedPet = await addPetToFirebase(newPet)
+  try {
+    const addedPet = await addPetToFirebase(newPet)
 
-  dispatch(addPet(addedPet))
+    dispatch(addPet(addedPet))
+  } catch (error) {
+    // Handle error
+  }
 }
 
 export const removePet = (petId: string) => async (dispatch: AppDispatch) => {
-  await removePetFromFirebase(petId)
-  dispatch(deletePet(petId))
+  try {
+    await removePetFromFirebase(petId)
+    dispatch(deletePet(petId))
+  } catch (error) {
+    // Handle error
+  }
 }
 
 export const updatePet = (updatedPet: Pet) => async (dispatch: AppDispatch) => {
-  await updatePetToFirebase(updatedPet)
-  dispatch(updatePetName(updatedPet))
+  try {
+    await updatePetToFirebase(updatedPet)
+    dispatch(updatePetName(updatedPet))
+  } catch (error) {
+    // Handle error
+  }
 }
 
 const petSlice = createSlice({
   initialState,
   name: 'pet',
   reducers: {
-    //
     addFavoritePet: (state, action: PayloadAction<Pet>) => {
-      const isIncluded = state.favoritePets.find(pet => pet.id === action.payload.id)
+      const isIncluded = state.favoritePets.findIndex(pet => pet.id === action.payload.id) !== -1
 
       if (!isIncluded) {
         state.favoritePets.push(action.payload)
@@ -56,6 +71,7 @@ const petSlice = createSlice({
     },
     deletePet: (state, action: PayloadAction<string>) => {
       state.pets = state.pets.filter(pet => pet.id !== action.payload)
+      state.favoritePets = state.favoritePets.filter(pet => pet.id !== action.payload) // Remove from favorites if exists
     },
     setPets: (state, action: PayloadAction<Pet[]>) => {
       state.pets = action.payload

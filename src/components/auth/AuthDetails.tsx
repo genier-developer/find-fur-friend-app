@@ -1,5 +1,3 @@
-// features/AuthDetails.tsx
-
 import { useDispatch, useSelector } from 'react-redux'
 
 import { selectUser, signOutUser } from '@/features/authSlice'
@@ -26,10 +24,10 @@ export const AuthDetails = () => {
       {user ? (
         <>
           <Button onClick={userSignOut}>Sign Out</Button>
-          <Typography variant={'subtitle1'}>{`Signed in ${user.email}`}</Typography>
+          <Typography variant={'h3'}>{`Signed in ${user.email}`}</Typography>
         </>
       ) : (
-        <Typography variant={'subtitle1'}>Not signed yet</Typography>
+        <Typography variant={'h3'}>Not signed yet</Typography>
       )}
     </div>
   )
