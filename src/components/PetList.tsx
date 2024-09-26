@@ -32,7 +32,6 @@ export const PetList = () => {
         <>
           {pets.map((pet: Pet) => (
             <Grid item key={pet.id}>
-              {/*{currentUser ? <PetEditableCard pet={pet} /> : <PetCard pet={pet} />}*/}
               <PetCard pet={pet} />
             </Grid>
           ))}

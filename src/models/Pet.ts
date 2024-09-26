@@ -1,4 +1,3 @@
-// src/models/Pet.ts
 export interface Pet {
   age: number
   createdAt: string

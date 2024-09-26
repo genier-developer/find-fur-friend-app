@@ -1,4 +1,3 @@
-// src/app/store.ts
 import { authReducer } from '@/features/authSlice'
 import { petReducer } from '@/features/petSlice'
 import { configureStore } from '@reduxjs/toolkit'
