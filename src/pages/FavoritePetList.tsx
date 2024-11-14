@@ -7,7 +7,7 @@ import { selectFavoritePets } from '@/features/petSlice'
 import { Pet } from '@/models/Pet'
 import { Container, Grid, LinearProgress, Typography } from '@mui/material'
 
-export const FavoritePetList = () => {
+const FavoritePetList = () => {
   const favoritePets = useSelector(selectFavoritePets)
   const isLoading = useAppSelector(state => state.pet.isLoading)
 
@@ -36,3 +36,5 @@ export const FavoritePetList = () => {
     </>
   )
 }
+
+export default FavoritePetList

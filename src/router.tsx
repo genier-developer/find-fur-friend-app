@@ -1,22 +1,22 @@
 import { useSelector } from 'react-redux'
+import { lazy, Suspense } from 'react'
 import {
   Navigate,
   Outlet,
   RouteObject,
   RouterProvider,
   createBrowserRouter,
-  // useOutletContext,
 } from 'react-router-dom'
 
 import { selectUser } from '@/features/authSlice'
+import { CircularProgress } from '@mui/material'
 
-import { AddNewPet } from './components/AddNewPet'
-import { Page404 } from './components/auth/Page404'
-import { SignIn } from './components/auth/SignIn'
-import { SignUp } from './components/auth/SignUp'
-import { FavoritePetList } from './pages/FavoritePetList'
-import { HomePage } from './pages/HomePage'
-
+const AddNewPet = lazy(() => import('./components/AddNewPet'))
+const Page404 = lazy(() => import('./components/auth/Page404'))
+const SignIn = lazy(() => import('./components/auth/SignIn'))
+const SignUp = lazy(() => import('./components/auth/SignUp'))
+const FavoritePetList = lazy(() => import('./pages/FavoritePetList'))
+const HomePage = lazy(() => import('./pages/HomePage'))
 const publicRoutes: RouteObject[] = [
   {
     element: <HomePage />,
@@ -73,5 +73,15 @@ function PublicRoutes() {
 }
 
 export const Router = () => {
-  return <RouterProvider router={router} />
+  return (
+    <Suspense
+      fallback={
+        <div>
+          <CircularProgress />
+        </div>
+      }
+    >
+      <RouterProvider router={router} />
+    </Suspense>
+  )
 }

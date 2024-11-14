@@ -15,7 +15,7 @@ import { v1 } from 'uuid'
 
 type AddNewPetProps = {}
 
-export const AddNewPet: React.FC<AddNewPetProps> = () => {
+const AddNewPet: React.FC<AddNewPetProps> = () => {
   const [pet, setPet] = useState({
     petAge: '',
     petImage: '',
@@ -149,3 +149,5 @@ export const AddNewPet: React.FC<AddNewPetProps> = () => {
     </>
   )
 }
+
+export default AddNewPet

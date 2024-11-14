@@ -6,7 +6,7 @@ import { PetList } from '@/components/PetList'
 import { fetchPets } from '@/features/petSlice'
 import { Container } from '@mui/material'
 
-export const HomePage = () => {
+const HomePage = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -26,3 +26,4 @@ export const HomePage = () => {
     </>
   )
 }
+export default HomePage

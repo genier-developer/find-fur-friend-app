@@ -18,7 +18,7 @@ import InputLabel from '@mui/material/InputLabel'
 import Link from '@mui/material/Link'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
-export const SignIn = () => {
+const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isOpen, setIsOpen] = useState(true)
@@ -120,3 +120,4 @@ export const SignIn = () => {
     </>
   )
 }
+export default SignIn

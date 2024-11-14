@@ -16,7 +16,7 @@ import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-export const SignUp = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -103,3 +103,4 @@ export const SignUp = () => {
     </>
   )
 }
+export default SignUp
