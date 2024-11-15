@@ -71,7 +71,7 @@ const petSlice = createSlice({
     },
     deletePet: (state, action: PayloadAction<string>) => {
       state.pets = state.pets.filter(pet => pet.id !== action.payload)
-      state.favoritePets = state.favoritePets.filter(pet => pet.id !== action.payload) // Remove from favorites if exists
+      state.favoritePets = state.favoritePets.filter(pet => pet.id !== action.payload)
     },
     setPets: (state, action: PayloadAction<Pet[]>) => {
       state.pets = action.payload

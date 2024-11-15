@@ -228,7 +228,7 @@ const AddNewPet: React.FC = () => {
     petWeight: false,
   })
 
-  const [open, setOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -262,14 +262,19 @@ const AddNewPet: React.FC = () => {
     }
 
     dispatch(addNewPet(newPet))
-    setOpen(false)
+    setIsOpen(false)
     navigate('/')
   }, [dispatch, newPet, navigate, pet.petName, pet.petType, errors])
 
   const handleCancel = useCallback(() => {
-    setOpen(false)
+    setIsOpen(false)
     navigate('/')
   }, [navigate])
+
+  const handleCloseModal = () => {
+    setIsOpen(false)
+    navigate('/')
+  }
 
   const validateField = (name: string, value: string) => {
     if (name === 'petAge' || name === 'petWeight') {
@@ -308,8 +313,8 @@ const AddNewPet: React.FC = () => {
     <>
       <Header />
       <Modal
-        open={open}
-        onClose={handleCancel}
+        open={isOpen}
+        onClose={handleCloseModal}
         aria-labelledby="add-new-pet-modal-title"
         aria-describedby="add-new-pet-modal-description"
       >
