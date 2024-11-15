@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 
 import { selectUser } from '@/features/authSlice'
-import { CircularProgress } from '@mui/material'
+import { LinearProgress } from '@mui/material'
 
 const AddNewPet = lazy(() => import('./components/AddNewPet'))
 const Page404 = lazy(() => import('./components/auth/Page404'))
@@ -77,7 +77,7 @@ export const Router = () => {
     <Suspense
       fallback={
         <div>
-          <CircularProgress />
+          <LinearProgress />
         </div>
       }
     >
