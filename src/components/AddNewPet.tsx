@@ -273,7 +273,7 @@ const AddNewPet: React.FC = () => {
 
   const validateField = (name: string, value: string) => {
     if (name === 'petAge' || name === 'petWeight') {
-      return !/^\d*$/.test(value) // Только цифры
+      return !/^\d*$/.test(value) // Numeric only
     }
     return false
   }
