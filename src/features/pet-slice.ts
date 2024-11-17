@@ -3,9 +3,9 @@ import {
   fetchPetsFromFirebase,
   removePetFromFirebase,
   updatePetToFirebase,
-} from '@/api/petApi'
+} from '@/api/pet-api'
 import { AppDispatch, RootState } from '@/app/store'
-import { Pet, PetState } from '@/models/Pet'
+import { Pet, PetState } from '@/models/pet-types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export const initialState: PetState = {

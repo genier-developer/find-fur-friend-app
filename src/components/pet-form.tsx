@@ -12,7 +12,7 @@
 // import TextField from '@mui/material/TextField'
 // import { v1 } from 'uuid'
 //
-// const AddNewPet: FC = () => {
+// const PetForm: FC = () => {
 //   const [pet, setPet] = useState({
 //     petAge: '',
 //     petImage: '',
@@ -189,13 +189,13 @@
 //   )
 // }
 //
-// export default AddNewPet
+// export default PetForm
 
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/app/hooks'
 import { Header } from '@/components/Header'
-import { addNewPet } from '@/features/petSlice'
+import { addNewPet } from '@/features/pet-slice'
 import {
   Modal,
   Box,
@@ -211,7 +211,7 @@ import {
 } from '@mui/material'
 import { v1 } from 'uuid'
 
-const AddNewPet: React.FC = () => {
+const PetForm: React.FC = () => {
   const [pet, setPet] = useState({
     petAge: '',
     petImage: '',
@@ -398,4 +398,4 @@ const AddNewPet: React.FC = () => {
   )
 }
 
-export default AddNewPet
+export default PetForm

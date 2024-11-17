@@ -1,5 +1,5 @@
 import { database } from '@/firebase'
-import { Pet } from '@/models/Pet'
+import { Pet } from '@/models/pet-types'
 import { get, ref, remove, set } from 'firebase/database'
 
 export const fetchPetsFromFirebase = async (): Promise<Pet[]> => {

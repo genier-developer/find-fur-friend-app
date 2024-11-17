@@ -8,15 +8,15 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { selectUser } from '@/features/authSlice'
+import { selectUser } from '@/features/auth-slice'
 import { LinearProgress } from '@mui/material'
 
-const AddNewPet = lazy(() => import('./components/AddNewPet'))
-const Page404 = lazy(() => import('./components/auth/Page404'))
-const SignIn = lazy(() => import('./components/auth/SignIn'))
-const SignUp = lazy(() => import('./components/auth/SignUp'))
-const FavoritePetList = lazy(() => import('./pages/FavoritePetList'))
-const HomePage = lazy(() => import('./pages/HomePage'))
+const AddNewPet = lazy(() => import('./components/pet-form'))
+const Page404 = lazy(() => import('./components/auth/error-page'))
+const SignIn = lazy(() => import('./components/auth/sign-in'))
+const SignUp = lazy(() => import('./components/auth/sign-up'))
+const FavoritePetList = lazy(() => import('./pages/favorite-pets'))
+const HomePage = lazy(() => import('./pages/home-page'))
 const publicRoutes: RouteObject[] = [
   {
     element: <HomePage />,

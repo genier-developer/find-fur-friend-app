@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux'
 
 import { useAppSelector } from '@/app/hooks'
 import { Header } from '@/components/Header'
-import { PetCard } from '@/components/card/PetCard'
-import { selectFavoritePets } from '@/features/petSlice'
-import { Pet } from '@/models/Pet'
+import { PetCard } from '@/components/card/pet-card'
+import { selectFavoritePets } from '@/features/pet-slice'
+import { Pet } from '@/models/pet-types'
 import { Container, Grid, LinearProgress, Typography } from '@mui/material'
 
 const FavoritePetList = () => {

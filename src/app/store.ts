@@ -1,5 +1,5 @@
-import { authReducer } from '@/features/authSlice'
-import { petReducer } from '@/features/petSlice'
+import { authReducer } from '@/features/auth-slice'
+import { petReducer } from '@/features/pet-slice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({

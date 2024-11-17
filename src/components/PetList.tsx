@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux'
 
 import { useAppSelector } from '@/app/hooks'
-import { AlertDialog } from '@/components/card/AlertDialog'
-import { selectUser } from '@/features/authSlice'
-import { selectPets } from '@/features/petSlice'
-import { Pet } from '@/models/Pet'
+import { AlertDialog } from '@/components/card/alert-dialog'
+import { selectUser } from '@/features/auth-slice'
+import { selectPets } from '@/features/pet-slice'
+import { Pet } from '@/models/pet-types'
 import { CircularProgress, Container, Grid, Typography } from '@mui/material'
 
-import { PetCard } from './card/PetCard'
+import { PetCard } from './card/pet-card'
 
 export const PetList = () => {
   const pets = useAppSelector(selectPets)

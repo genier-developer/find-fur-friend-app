@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
-const Page404 = () => {
+const ErrorPage = () => {
   const image = 'src/assets/images/404.jpg'
 
   return (
@@ -18,4 +18,4 @@ const Page404 = () => {
     </div>
   )
 }
-export default Page404
+export default ErrorPage

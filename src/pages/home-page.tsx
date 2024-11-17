@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useAppDispatch } from '@/app/hooks'
 import { Header } from '@/components/Header'
 import { PetList } from '@/components/PetList'
-import { fetchPets } from '@/features/petSlice'
+import { fetchPets } from '@/features/pet-slice'
 import { Container } from '@mui/material'
 
 const HomePage = () => {
