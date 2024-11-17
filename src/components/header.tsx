@@ -64,7 +64,7 @@ export const Header = () => {
             <PetsIcon viewBox={'0 0 24 24'} />
           </IconButton>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
-            Save a life
+            FindFurFriends
           </Typography>
           {currentUser ? (
             <>
