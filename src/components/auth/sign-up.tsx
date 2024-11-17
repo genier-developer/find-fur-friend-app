@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Header } from '@/components/Header'
+import { Header } from '@/components/header'
 import { auth } from '@/firebase'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'

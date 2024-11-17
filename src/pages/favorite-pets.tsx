@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import { useAppSelector } from '@/app/hooks'
-import { Header } from '@/components/Header'
+import { Header } from '@/components/header'
 import { PetCard } from '@/components/card/pet-card'
 import { selectFavoritePets } from '@/features/pet-slice'
 import { Pet } from '@/models/pet-types'
