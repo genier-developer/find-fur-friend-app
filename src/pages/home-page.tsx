@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useAppDispatch } from '@/app/hooks'
 import { Header } from '@/components/header'
-import { PetList } from '@/components/PetList'
+import { PetList } from '@/components/pet-list'
 import { fetchPets } from '@/features/pet-slice'
 import { Container } from '@mui/material'
 
