@@ -8,7 +8,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { selectUser } from '@/features/user/auth-slice'
+import { selectUser } from '@/features/user/slices/auth-slice'
 import { LinearProgress } from '@mui/material'
 
 const AddNewPet = lazy(() => import('@/features/pet/components/pet-form'))

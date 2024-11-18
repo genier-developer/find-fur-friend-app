@@ -2,8 +2,8 @@ import { useSelector } from 'react-redux'
 
 import { useAppSelector } from '@/app/hooks'
 import { AlertDialog } from '@/shared/components/alert-dialog'
-import { selectUser } from '@/features/user/auth-slice'
-import { selectPets } from '@/features/pet/pet-slice'
+import { selectUser } from '@/features/user/slices/auth-slice'
+import { selectPets } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
 import { CircularProgress, Container, Grid, Typography } from '@mui/material'
 

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectUser, signOutUser } from '@/features/user/auth-slice'
+import { selectUser, signOutUser } from '@/features/user/slices/auth-slice'
 import { auth } from '@/services/firebase'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'

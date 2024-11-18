@@ -127,7 +127,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { Header } from '@/shared/components/header'
-import { setUser } from '@/features/user/auth-slice'
+import { setUser } from '@/features/user/slices/auth-slice'
 import { auth } from '@/services/firebase'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
