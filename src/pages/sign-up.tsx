@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { Header } from '@/components/header'
-import { auth } from '@/firebase'
+import { Header } from '@/shared/components/header'
+import { auth } from '@/services/firebase'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { OutlinedInput } from '@mui/material'

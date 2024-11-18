@@ -1,4 +1,4 @@
-import './firebase'
+import './services/firebase'
 import './index.scss'
 
 import { StrictMode } from 'react'

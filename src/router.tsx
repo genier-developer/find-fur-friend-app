@@ -8,13 +8,13 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { selectUser } from '@/features/auth-slice'
+import { selectUser } from '@/features/user/auth-slice'
 import { LinearProgress } from '@mui/material'
 
-const AddNewPet = lazy(() => import('./components/pet-form'))
-const Page404 = lazy(() => import('./components/auth/error-page'))
-const SignIn = lazy(() => import('./components/auth/sign-in'))
-const SignUp = lazy(() => import('./components/auth/sign-up'))
+const AddNewPet = lazy(() => import('@/features/pet/components/pet-form'))
+const Page404 = lazy(() => import('./pages/error-page'))
+const SignIn = lazy(() => import('./pages/sign-in'))
+const SignUp = lazy(() => import('./pages/sign-up'))
 const FavoritePetList = lazy(() => import('./pages/favorite-pets'))
 const HomePage = lazy(() => import('./pages/home-page'))
 const publicRoutes: RouteObject[] = [
