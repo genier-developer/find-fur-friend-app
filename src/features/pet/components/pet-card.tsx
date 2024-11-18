@@ -43,7 +43,7 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
 
   return (
     <Card elevation={6} sx={{ maxWidth: 345 }}>
-      <CardMedia image={pet.image} sx={{ height: 200, width: 200 }} />
+      <CardMedia component={'img'} image={pet.image} sx={{ height: 200, width: 200 }} />
       <CardContent>
         <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
           <Typography component={'div'} sx={{ marginBottom: 1 }} variant={'h5'}>
