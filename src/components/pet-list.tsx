@@ -8,8 +8,9 @@ import { Pet } from '@/models/pet-types'
 import { CircularProgress, Container, Grid, Typography } from '@mui/material'
 
 import { PetCard } from './card/pet-card'
+import { FC } from 'react'
 
-export const PetList = () => {
+export const PetList: FC = () => {
   const pets = useAppSelector(selectPets)
   const currentUser = useSelector(selectUser)
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -15,11 +15,11 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 
 export type PetItemProps = {
-  isFavorite?: boolean
   pet: Pet
+  isFavorite?: boolean
 }
 
-export const PetCard: React.FC<PetItemProps> = ({ isFavorite, pet }) => {
+export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
   const currentUser = useSelector(selectUser)
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false)
