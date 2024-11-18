@@ -1,55 +1,11 @@
-import {
-  addPetToFirebase,
-  fetchPetsFromFirebase,
-  removePetFromFirebase,
-  updatePetToFirebase,
-} from '@/features/pet/pet-api'
-import { AppDispatch, RootState } from '@/app/store'
-import { Pet, PetState } from '@/features/pet/pet-types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Pet, PetState } from '@/features/pet/pet-types'
+import { RootState } from '@/app/store'
 
 export const initialState: PetState = {
   favoritePets: [],
   isLoading: false,
   pets: [],
-}
-
-export const fetchPets = () => async (dispatch: AppDispatch) => {
-  try {
-    const pets = await fetchPetsFromFirebase()
-
-    dispatch(setPets(pets))
-  } catch (error) {
-    // Handle error
-  }
-}
-
-export const addNewPet = (newPet: Pet) => async (dispatch: AppDispatch) => {
-  try {
-    const addedPet = await addPetToFirebase(newPet)
-
-    dispatch(addPet(addedPet))
-  } catch (error) {
-    // Handle error
-  }
-}
-
-export const removePet = (petId: string) => async (dispatch: AppDispatch) => {
-  try {
-    await removePetFromFirebase(petId)
-    dispatch(deletePet(petId))
-  } catch (error) {
-    // Handle error
-  }
-}
-
-export const updatePet = (updatedPet: Pet) => async (dispatch: AppDispatch) => {
-  try {
-    await updatePetToFirebase(updatedPet)
-    dispatch(updatePetName(updatedPet))
-  } catch (error) {
-    // Handle error
-  }
 }
 
 const petSlice = createSlice({
@@ -88,6 +44,7 @@ const petSlice = createSlice({
 
 export const { addFavoritePet, addPet, deleteFavoritePet, deletePet, setPets, updatePetName } =
   petSlice.actions
+
 export const petReducer = petSlice.reducer
 export const selectPets = (state: RootState) => state.pet.pets
 export const selectFavoritePets = (state: RootState) => state.pet.favoritePets

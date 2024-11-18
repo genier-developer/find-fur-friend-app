@@ -195,7 +195,7 @@ import React, { ChangeEvent, useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/app/hooks'
 import { Header } from '@/shared/components/header'
-import { addNewPet } from '@/features/pet/slices/pet-slice'
+import { addNewPet } from '@/features/pet/actions/pet-actions'
 import {
   Modal,
   Box,
