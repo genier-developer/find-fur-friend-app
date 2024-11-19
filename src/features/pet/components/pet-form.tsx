@@ -219,6 +219,7 @@ const PetForm: React.FC = () => {
     petSex: '',
     petType: '',
     petWeight: '',
+    ownerId: '',
   })
 
   const [errors, setErrors] = useState({
@@ -244,6 +245,7 @@ const PetForm: React.FC = () => {
       type: pet.petType,
       updatedAt: new Date().toISOString(),
       weight: +pet.petWeight,
+      ownerId: pet.ownerId,
     }),
     [pet]
   )

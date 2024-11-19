@@ -10,6 +10,7 @@ export interface Pet {
   type: string
   updatedAt: string
   weight: number
+  ownerId: string
 }
 export interface PetState {
   favoritePets: Pet[]

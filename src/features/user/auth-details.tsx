@@ -14,21 +14,14 @@ export const AuthDetails = () => {
     signOut(auth)
       .then(() => {
         dispatch(signOutUser())
-        console.log('signed out successful')
       })
       .catch(error => console.log(error))
   }
 
   return (
     <div>
-      {user ? (
-        <>
-          <Button onClick={userSignOut}>Sign Out</Button>
-          <Typography variant={'h3'}>{`Signed in ${user.email}`}</Typography>
-        </>
-      ) : (
-        <Typography variant={'h3'}>Not signed yet</Typography>
-      )}
+      <Button onClick={userSignOut}>Sign Out</Button>
+      <Typography variant={'h6'}>{`Signed in ${user?.email}`}</Typography>
     </div>
   )
 }

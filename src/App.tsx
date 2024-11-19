@@ -1,14 +1,14 @@
 import { Provider } from 'react-redux'
-import { store } from './app/store'
+import { listenToAuthChanges } from '@/features/user/listen-to-auth-changes'
+import { store } from '@/app/store'
 import { Router } from './router'
-import { UserProvider } from '@/features/user/user-provider'
 
 export const App = () => {
+  store.dispatch(listenToAuthChanges())
+
   return (
     <Provider store={store}>
-      <UserProvider>
-        <Router />
-      </UserProvider>
+      <Router />
     </Provider>
   )
 }
