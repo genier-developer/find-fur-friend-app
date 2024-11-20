@@ -10,7 +10,6 @@ export const listenToAuthChanges = () => (dispatch: AppDispatch) => {
         setUser({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
         })
       )
     } else {
