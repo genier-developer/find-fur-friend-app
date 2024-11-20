@@ -13,7 +13,6 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
-import { useUser } from '@/features/user/use-user'
 
 export type PetItemProps = {
   pet: Pet
@@ -22,7 +21,6 @@ export type PetItemProps = {
 
 export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
   const currentUser = useSelector(selectUser)
-  const { ownerId } = useUser()
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false)
   const [isFavorites, setIsFavorites] = useState(isFavorite)
@@ -42,9 +40,6 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
       setOpen(true)
     }
   }
-
-  console.log('OwnerId: ', ownerId)
-  console.log('CurrentUser: ', currentUser?.uid)
 
   return (
     <Card elevation={6} sx={{ maxWidth: 345 }}>
