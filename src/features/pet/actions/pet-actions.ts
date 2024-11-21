@@ -12,7 +12,7 @@ export const fetchPets = createAsyncThunk<Pet[], void, { rejectValue: string }>(
   async (_, { rejectWithValue }) => {
     try {
       return await fetchPetsFromFirebase()
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching pets:', error)
       return rejectWithValue('Failed to fetch pets')
     }
@@ -26,7 +26,7 @@ export const addNewPet = createAsyncThunk<Pet, Pet, { rejectValue: string }>(
       const addedPet = await addPetToFirebase(newPet)
       console.log('Pet added successfully:', addedPet)
       return addedPet
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to add new pet:', error)
       return rejectWithValue('Failed to add new pet')
     }
@@ -40,7 +40,7 @@ export const removePet = createAsyncThunk<string, string, { rejectValue: string 
       await removePetFromFirebase(petId)
       console.log(`Pet with ID ${petId} removed successfully.`)
       return petId
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Failed to remove pet with ID ${petId}:`, error)
       return rejectWithValue('Failed to remove pet')
     }
@@ -54,7 +54,7 @@ export const updatePet = createAsyncThunk<Pet, Pet, { rejectValue: string }>(
       await updatePetToFirebase(updatedPet)
       console.log('Pet updated successfully:', updatedPet)
       return updatedPet
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to update pet:', error)
       return rejectWithValue('Failed to update pet')
     }
