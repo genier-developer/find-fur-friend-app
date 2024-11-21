@@ -14,13 +14,13 @@ type AlertDialogProps = {
 
 export const AlertDialog: FC<AlertDialogProps> = ({ open, onClose }) => (
   <Dialog
-    aria-describedby="alert-dialog-description"
-    aria-labelledby="alert-dialog-title"
+    aria-describedby={'alert-dialog-description'}
+    aria-labelledby={'alert-dialog-title'}
     onClose={onClose}
     open={open}
   >
     <DialogContent>
-      <DialogContentText id="alert-dialog-description">You should be logged in</DialogContentText>
+      <DialogContentText id="alert-dialog-description">You should be logged in.</DialogContentText>
     </DialogContent>
     <DialogActions>
       <Button onClick={onClose}>Cancel</Button>
