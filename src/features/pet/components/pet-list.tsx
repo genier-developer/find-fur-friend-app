@@ -5,7 +5,7 @@ import { AlertDialog } from '@/shared/components/alert-dialog'
 import { selectUser } from '@/features/user/slices/auth-slice'
 import { selectPets } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
-import { CircularProgress, Container, Grid, Typography } from '@mui/material'
+import { Container, Grid, LinearProgress, Typography } from '@mui/material'
 
 import { PetCard } from './pet-card'
 import { FC } from 'react'
@@ -17,7 +17,7 @@ export const PetList: FC = () => {
   const isLoading = useAppSelector(state => state.pet.isLoading)
 
   if (isLoading) {
-    return <CircularProgress />
+    return <LinearProgress />
   }
 
   return (

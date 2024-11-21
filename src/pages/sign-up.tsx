@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 
 import { Header } from '@/shared/components/header'
 import { auth } from '@/services/firebase'
@@ -20,7 +20,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)

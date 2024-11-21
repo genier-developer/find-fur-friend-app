@@ -17,9 +17,17 @@ import {
   TextField,
 } from '@mui/material'
 import { v1 } from 'uuid'
+import { useSelector } from 'react-redux'
+import { selectUser } from '@/features/user/slices/auth-slice'
 
 const PetForm: FC = () => {
+  const currentUser = useSelector(selectUser)
+  const [isOpen, setIsOpen] = useState(true)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const [pet, setPet] = useState({
+    petId: '',
     petAge: '',
     petImage: '',
     petName: '',
@@ -36,10 +44,6 @@ const PetForm: FC = () => {
     petWeight: false,
   })
 
-  const [isOpen, setIsOpen] = useState(true)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-
   const newPet = useMemo(
     () => ({
       age: +pet.petAge,
@@ -52,7 +56,7 @@ const PetForm: FC = () => {
       type: pet.petType,
       updatedAt: new Date().toISOString(),
       weight: +pet.petWeight,
-      ownerId: pet.ownerId,
+      ownerId: currentUser?.uid,
     }),
     [pet]
   )
