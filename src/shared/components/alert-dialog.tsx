@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Link } from 'react-router-dom'
 
 import AddIcon from '@mui/icons-material/Add'
@@ -8,9 +7,10 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
+import { useState } from 'react'
 
 export const AlertDialog = () => {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const handleClickOpen = () => {
     setOpen(true)
   }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { useAppDispatch } from '@/app/hooks'
 import { selectUser } from '@/features/user/slices/auth-slice'
-import { addFavoritePet, deleteFavoritePet, deletePet } from '@/features/pet/slices/pet-slice'
+import { addFavoritePet, deleteFavoritePet } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
 import { FavoriteBorderOutlined, FavoriteOutlined } from '@mui/icons-material'
 import { Card, CardContent, CardMedia, Typography } from '@mui/material'
@@ -13,6 +13,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
+import { removePet } from '@/features/pet/actions/pet-actions'
 
 export type PetItemProps = {
   pet: Pet
@@ -31,6 +32,7 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
   const handleFavoriteClick = () => {
     if (currentUser) {
       if (isFavorite) {
+        console.log('Deleted from Favorites: ', pet.id)
         dispatch(deleteFavoritePet(pet.id))
       } else {
         dispatch(addFavoritePet(pet))
@@ -45,7 +47,7 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
   }, [currentUser])
 
   const handleDelete = () => {
-    dispatch(deletePet(pet.id))
+    dispatch(removePet(pet.id))
   }
 
   return (
@@ -66,6 +68,9 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
           Owner: <b>{pet.ownerId}</b>
         </Typography>
         <Typography color={'text.secondary'}>
+          CurrentUser: <b>{currentUser?.email}</b>
+        </Typography>
+        <Typography color={'text.secondary'}>
           Age: <b>{pet.age}</b>
         </Typography>
         <Typography color={'text.secondary'}>
@@ -77,10 +82,15 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
         <Typography color={'text.secondary'}>
           Available: <b>{pet.isAvailable ? 'Yes' : 'No'}</b>
         </Typography>
-        <Button variant={'contained'} onClick={handleDelete}>
-          Delete
-        </Button>
-
+        {pet.ownerId === currentUser?.uid ? (
+          <Button variant={'contained'} onClick={handleDelete}>
+            Delete
+          </Button>
+        ) : (
+          <Button variant={'contained'} disabled>
+            Delete
+          </Button>
+        )}
         {!currentUser && (
           <Dialog
             aria-describedby={'alert-dialog-description'}
