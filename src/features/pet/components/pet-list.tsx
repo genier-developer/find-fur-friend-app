@@ -5,14 +5,19 @@ import { AlertDialog } from '@/shared/components/alert-dialog'
 import { selectUser } from '@/features/user/slices/auth-slice'
 import { selectPets } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
-import { Container, Grid, LinearProgress, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
+import LinearProgress from '@mui/material/LinearProgress'
 
 import { PetCard } from './pet-card'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 export const PetList: FC = () => {
   const pets = useAppSelector(selectPets)
   const currentUser = useSelector(selectUser)
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
+
+  // const handleOpenAlert = () => setIsAlertOpen(true)
+  const handleCloseAlert = () => setIsAlertOpen(false)
 
   const isLoading = useAppSelector(state => state.pet.isLoading)
 
@@ -26,18 +31,19 @@ export const PetList: FC = () => {
         {pets.length === 0 && (
           <Grid item textAlign={'center'} xs={12}>
             <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
-              Luckily there is no one here...
+              Pet shelter is empty
             </Typography>
           </Grid>
         )}
-        <>
-          {pets.map((pet: Pet) => (
+        {pets.length > 0 &&
+          pets.map((pet: Pet) => (
             <Grid item key={pet.id}>
               <PetCard pet={pet} />
             </Grid>
           ))}
-          <Grid item>{!currentUser && <AlertDialog />}</Grid>
-        </>
+        <Grid item>
+          {!currentUser && <AlertDialog open={isAlertOpen} onClose={handleCloseAlert} />}
+        </Grid>
       </Grid>
     </Container>
   )

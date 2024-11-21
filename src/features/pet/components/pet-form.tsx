@@ -55,7 +55,7 @@ const PetForm: FC = () => {
       sex: pet.petSex,
       type: pet.petType,
       updatedAt: new Date().toISOString(),
-      weight: +pet.petWeight,
+      weight: parseFloat(pet.petWeight.replace(',', '.')),
       ownerId: currentUser?.uid,
     }),
     [pet]
@@ -90,10 +90,12 @@ const PetForm: FC = () => {
   }
 
   const validateField = (name: string, value: string) => {
-    if (name === 'petAge' || name === 'petWeight') {
-      return !/^\d*$/.test(value) // Numeric only
+    if (name === 'petAge') {
+      return !/^\d+$/.test(value)
     }
-    return false
+    if (name === 'petWeight') {
+      return !/^\d+([.,]\d+)?$/.test(value) //accept decimal numbers
+    }
   }
 
   const onTextFieldChange = useCallback(
@@ -111,7 +113,7 @@ const PetForm: FC = () => {
   )
 
   const modalStyles = {
-    position: 'absolute' as 'absolute',
+    position: 'absolute' as const,
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
