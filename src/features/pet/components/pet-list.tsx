@@ -23,7 +23,7 @@ export const PetList: FC = () => {
   return (
     <Container>
       <Grid alignItems={'center'} container justifyContent={'center'} marginBottom={5} spacing={5}>
-        {pets.length === 0 && isLoading && (
+        {pets.length === 0 && (
           <Grid item textAlign={'center'} xs={12}>
             <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
               Luckily there is no one here...

@@ -17,13 +17,17 @@ export const fetchPetsFromFirebase = async (): Promise<Pet[]> => {
 
 export const addPetToFirebase = async (newPet: Pet): Promise<Pet> => {
   const newPetRef = ref(database, 'pets/' + newPet.id)
+  console.log('Adding to Firebase:', { path: 'pets/' + newPet.id, data: newPet })
 
   await set(newPetRef, newPet)
+
+  console.log('Added pet to Firebase successfully:', newPet)
 
   return newPet
 }
 
 export const removePetFromFirebase = async (id: string): Promise<void> => {
+  console.log('Removed pet from Firebase:', id)
   await remove(ref(database, `pets/${id}`))
 }
 

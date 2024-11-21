@@ -1,10 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { useAppDispatch } from '@/app/hooks'
 import { selectUser } from '@/features/user/slices/auth-slice'
-import { addFavoritePet, deleteFavoritePet } from '@/features/pet/slices/pet-slice'
+import { addFavoritePet, deleteFavoritePet, deletePet } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
 import { FavoriteBorderOutlined, FavoriteOutlined } from '@mui/icons-material'
 import { Card, CardContent, CardMedia, Typography } from '@mui/material'
@@ -40,6 +40,13 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
       setOpen(true)
     }
   }
+  useEffect(() => {
+    console.log('CurrentUser: ', currentUser?.uid)
+  }, [currentUser])
+
+  const handleDelete = () => {
+    dispatch(deletePet(pet.id))
+  }
 
   return (
     <Card elevation={6} sx={{ maxWidth: 345 }}>
@@ -56,6 +63,9 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
           )}
         </div>
         <Typography color={'text.secondary'}>
+          Owner: <b>{pet.ownerId}</b>
+        </Typography>
+        <Typography color={'text.secondary'}>
           Age: <b>{pet.age}</b>
         </Typography>
         <Typography color={'text.secondary'}>
@@ -67,6 +77,10 @@ export const PetCard: FC<PetItemProps> = ({ isFavorite, pet }) => {
         <Typography color={'text.secondary'}>
           Available: <b>{pet.isAvailable ? 'Yes' : 'No'}</b>
         </Typography>
+        <Button variant={'contained'} onClick={handleDelete}>
+          Delete
+        </Button>
+
         {!currentUser && (
           <Dialog
             aria-describedby={'alert-dialog-description'}

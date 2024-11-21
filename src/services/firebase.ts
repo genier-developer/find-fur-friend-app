@@ -13,7 +13,7 @@ export const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const database = getDatabase()
+const database = getDatabase(app)
 const auth = getAuth()
 
 export { app, auth, database }
