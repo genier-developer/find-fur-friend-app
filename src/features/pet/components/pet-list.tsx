@@ -22,7 +22,7 @@ export const PetList: FC = () => {
   const isLoading = useAppSelector(state => state.pet.isLoading)
 
   if (isLoading) {
-    return <LinearProgress />
+    return <LinearProgress sx={{ marginTop: -2 }} />
   }
 
   return (

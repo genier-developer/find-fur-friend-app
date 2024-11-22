@@ -59,12 +59,6 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
           )}
         </div>
         <Typography color="text.secondary">
-          Owner: <b>{pet.ownerId}</b>
-        </Typography>
-        <Typography color="text.secondary">
-          CurrentUser: <b>{currentUser?.email}</b>
-        </Typography>
-        <Typography color="text.secondary">
           Age: <b>{pet.age}</b>
         </Typography>
         <Typography color="text.secondary">
@@ -77,11 +71,11 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
           Available: <b>{pet.isAvailable ? 'Yes' : 'No'}</b>
         </Typography>
         {pet.ownerId === currentUser?.uid ? (
-          <Button variant="contained" onClick={handleDelete}>
+          <Button sx={{ marginTop: 2 }} variant="contained" onClick={handleDelete}>
             Delete
           </Button>
         ) : (
-          <Button variant="contained" disabled>
+          <Button variant="contained" sx={{ marginTop: 2 }} disabled>
             Delete
           </Button>
         )}
