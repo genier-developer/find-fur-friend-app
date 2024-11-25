@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { lazy, Suspense } from 'react'
+import { lazy, ReactNode, Suspense } from 'react'
 import {
   Navigate,
   Outlet,
@@ -17,71 +17,86 @@ const SignIn = lazy(() => import('./pages/sign-in'))
 const SignUp = lazy(() => import('./pages/sign-up'))
 const FavoritePetList = lazy(() => import('./pages/favorite-pets'))
 const HomePage = lazy(() => import('./pages/home-page'))
+
+const withSuspense = (Component: ReactNode) => (
+  <Suspense
+    fallback={
+      <div>
+        <LinearProgress />
+      </div>
+    }
+  >
+    {Component}
+  </Suspense>
+)
+
 const publicRoutes: RouteObject[] = [
   {
-    element: <HomePage />,
+    element: withSuspense(<HomePage />),
     index: true,
     path: '/',
   },
   {
-    element: <SignIn />,
+    element: withSuspense(<SignIn />),
     path: '/login',
   },
   {
-    element: <SignUp />,
+    element: withSuspense(<SignUp />),
     path: '/signup',
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <FavoritePetList />,
+    element: withSuspense(<FavoritePetList />),
     path: '/favorites',
   },
   {
-    element: <AddNewPet />,
+    element: withSuspense(<AddNewPet />),
     path: '/add',
   },
 ]
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      children: privateRoutes,
+      element: <PrivateRoutes />,
+    },
+    {
+      children: publicRoutes,
+      element: <PublicRoutes />,
+    },
+    {
+      element: withSuspense(<Page404 />),
+      path: '/404',
+    },
+    {
+      element: <Navigate to={'/404'} />,
+      path: '*',
+    },
+  ],
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
-  },
-  {
-    children: publicRoutes,
-    element: <PublicRoutes />,
-  },
-  {
-    element: <Page404 />,
-    path: '/404',
-  },
-  {
-    element: <Navigate to={'/404'} />,
-    path: '*',
-  },
-])
+    future: {
+      v7_relativeSplatPath: true,
+      v7_fetcherPersist: true,
+      v7_normalizeFormMethod: true,
+      v7_partialHydration: true,
+      v7_skipActionErrorRevalidation: true,
+      v7_startTransition: true,
+    },
+  }
+)
 
 function PrivateRoutes() {
   const currentUser = useSelector(selectUser)
-
   return currentUser ? <Outlet /> : <Navigate to={'/login'} />
 }
+
 function PublicRoutes() {
   return <Outlet />
 }
 
 export const Router = () => {
-  return (
-    <Suspense
-      fallback={
-        <div>
-          <LinearProgress />
-        </div>
-      }
-    >
-      <RouterProvider router={router} />
-    </Suspense>
-  )
+  return <RouterProvider router={router} />
 }

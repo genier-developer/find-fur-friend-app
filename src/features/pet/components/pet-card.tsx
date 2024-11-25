@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { useAppDispatch } from '@/app/hooks'
@@ -25,7 +25,6 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
   const handleFavoriteClick = () => {
     if (currentUser) {
       if (isFavorites) {
-        console.log('Deleted from Favorites: ', pet.id)
         dispatch(deleteFavoritePet(pet.id))
       } else {
         dispatch(addFavoritePet(pet))
@@ -39,10 +38,6 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
   const handleDelete = () => {
     dispatch(removePet(pet.id))
   }
-
-  useEffect(() => {
-    console.log('CurrentUser: ', currentUser?.uid)
-  }, [currentUser])
 
   return (
     <Card elevation={6} sx={{ maxWidth: 345 }}>

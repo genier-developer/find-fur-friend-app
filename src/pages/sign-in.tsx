@@ -1,128 +1,4 @@
-// import React, { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
-//
-// import { Header } from '@/components/Header'
-// import { setUser } from '@/features/authSlice'
-// import { auth } from '@/firebase'
-// import Visibility from '@mui/icons-material/Visibility'
-// import VisibilityOff from '@mui/icons-material/VisibilityOff'
-// import { OutlinedInput, Typography } from '@mui/material'
-// import Button from '@mui/material/Button'
-// import Card from '@mui/material/Card'
-// import Container from '@mui/material/Container'
-// import FormControl from '@mui/material/FormControl'
-// import IconButton from '@mui/material/IconButton'
-// import InputAdornment from '@mui/material/InputAdornment'
-// import InputLabel from '@mui/material/InputLabel'
-// import Link from '@mui/material/Link'
-// import { signInWithEmailAndPassword } from 'firebase/auth'
-//
-// const SignIn = () => {
-//   const [email, setEmail] = useState('')
-//   const [password, setPassword] = useState('')
-//   const [isOpen, setIsOpen] = useState(true)
-//   const dispatch = useDispatch()
-//   const navigate = useNavigate()
-//
-//   const signIn = async (event: React.FormEvent<HTMLFormElement>) => {
-//     event.preventDefault()
-//     try {
-//       const userCredential = await signInWithEmailAndPassword(auth, email, password)
-//       const user = userCredential.user
-//
-//       dispatch(setUser(user))
-//       setIsOpen(false)
-//       navigate('/')
-//       console.log('Signed in user:', user)
-//     } catch (error) {
-//       console.error('Error signing in:', error)
-//     }
-//   }
-//
-//   const [showPassword, setShowPassword] = React.useState(false)
-//
-//   const handleClickShowPassword = () => setShowPassword(show => !show)
-//
-//   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-//     event.preventDefault()
-//   }
-//
-//   return (
-//     <>
-//       {isOpen && (
-//         <>
-//           <Header />
-//           <form onSubmit={signIn}>
-//             <Card
-//               elevation={10}
-//               sx={{
-//                 marginLeft: 'auto',
-//                 marginRight: 'auto',
-//                 marginTop: '35px',
-//                 maxWidth: 350,
-//                 paddingBottom: 5,
-//                 paddingLeft: 2,
-//                 paddingTop: 5,
-//                 textAlign: 'center',
-//               }}
-//             >
-//               <Typography variant={'h5'}>Sign In</Typography>
-//               <Container sx={{ marginTop: 2 }}>
-//                 <FormControl size={'small'} sx={{ m: 1, width: '25ch' }} variant={'outlined'}>
-//                   <InputLabel htmlFor={'outlined-adornment-email'}>Email</InputLabel>
-//                   <OutlinedInput
-//                     endAdornment={
-//                       <InputAdornment position={'end'}>
-//                         <IconButton edge={'end'}></IconButton>
-//                       </InputAdornment>
-//                     }
-//                     id={'outlined-adornment-password'}
-//                     label={'Email'}
-//                     onChange={event => setEmail(event.target.value)}
-//                     type={'email'}
-//                   />
-//                 </FormControl>
-//                 <FormControl size={'small'} sx={{ m: 1, width: '25ch' }} variant={'outlined'}>
-//                   <InputLabel htmlFor={'outlined-adornment-password'}>Password</InputLabel>
-//                   <OutlinedInput
-//                     endAdornment={
-//                       <InputAdornment position={'end'}>
-//                         <IconButton
-//                           aria-label={'toggle password visibility'}
-//                           edge={'end'}
-//                           onClick={handleClickShowPassword}
-//                           onMouseDown={handleMouseDownPassword}
-//                         >
-//                           {showPassword ? <VisibilityOff /> : <Visibility />}
-//                         </IconButton>
-//                       </InputAdornment>
-//                     }
-//                     id={'outlined-adornment-password'}
-//                     label={'Password'}
-//                     onChange={event => setPassword(event.target.value)}
-//                     type={showPassword ? 'text' : 'password'}
-//                   />
-//                 </FormControl>
-//
-//                 <Button sx={{ marginTop: 2 }} type={'submit'} variant={'contained'}>
-//                   Sign In
-//                 </Button>
-//                 <Typography sx={{ marginBottom: 2, marginTop: 4 }}>
-//                   Don&apos;t have an account?
-//                 </Typography>
-//                 <Link href={'/signUp'}>Create an account</Link>
-//               </Container>
-//             </Card>
-//           </form>
-//         </>
-//       )}
-//     </>
-//   )
-// }
-// export default SignIn
-
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -143,12 +19,18 @@ import InputLabel from '@mui/material/InputLabel'
 import Link from '@mui/material/Link'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
-const SignIn = () => {
+const SignIn: FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isOpen, setIsOpen] = useState(true)
-  const dispatch = useDispatch()
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  const isFormValid = isEmailValid && password.length >= 6
 
   const signIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -159,16 +41,18 @@ const SignIn = () => {
       dispatch(setUser(user))
       setIsOpen(false)
       navigate('/')
-      console.log('Signed in user:', user)
     } catch (error) {
-      console.error('Error signing in:', error)
+      setError('Invalid email or password. Please try again.')
+      console.log(error)
     }
   }
 
-  const [showPassword, setShowPassword] = React.useState(false)
+  const handleClose = () => {
+    setIsOpen(false)
+    navigate('/')
+  }
 
   const handleClickShowPassword = () => setShowPassword(show => !show)
-
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
@@ -189,54 +73,70 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+      <Modal open={isOpen} onClose={handleClose}>
         <Box sx={modalStyle}>
           <form onSubmit={signIn}>
-            <Typography variant={'h5'}>Sign In</Typography>
+            <Typography variant="h5">Sign In</Typography>
             <Container sx={{ marginTop: 2 }}>
-              <FormControl size={'small'} sx={{ m: 1, width: '25ch' }} variant={'outlined'}>
-                <InputLabel htmlFor={'outlined-adornment-email'}>Email</InputLabel>
+              <FormControl size="small" sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                 <OutlinedInput
-                  endAdornment={
-                    <InputAdornment position={'end'}>
-                      <IconButton edge={'end'}></IconButton>
-                    </InputAdornment>
-                  }
-                  id={'outlined-adornment-email'}
-                  label={'Email'}
+                  id="outlined-adornment-email"
+                  label="Email"
                   onChange={event => setEmail(event.target.value)}
-                  type={'email'}
+                  type="email"
                 />
+                {!isEmailValid && email && (
+                  <Typography color="error" variant="caption">
+                    Please enter a valid email.
+                  </Typography>
+                )}
               </FormControl>
-              <FormControl size={'small'} sx={{ m: 1, width: '25ch' }} variant={'outlined'}>
-                <InputLabel htmlFor={'outlined-adornment-password'}>Password</InputLabel>
+              <FormControl size="small" sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
+                  id="outlined-adornment-password"
+                  label="Password"
+                  onChange={event => setPassword(event.target.value)}
+                  type={showPassword ? 'text' : 'password'}
                   endAdornment={
-                    <InputAdornment position={'end'}>
+                    <InputAdornment position="end">
                       <IconButton
-                        aria-label={'toggle password visibility'}
-                        edge={'end'}
+                        aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
+                        edge="end"
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   }
-                  id={'outlined-adornment-password'}
-                  label={'Password'}
-                  onChange={event => setPassword(event.target.value)}
-                  type={showPassword ? 'text' : 'password'}
                 />
+                {password && password.length < 6 && (
+                  <Typography color="error" variant="caption">
+                    Password must be at least 6 characters.
+                  </Typography>
+                )}
               </FormControl>
 
-              <Button sx={{ marginTop: 2 }} type={'submit'} variant={'contained'}>
+              {error && (
+                <Typography color="error" variant="caption" sx={{ display: 'block', mt: 1 }}>
+                  {error}
+                </Typography>
+              )}
+
+              <Button
+                sx={{ marginTop: 2 }}
+                type="submit"
+                variant="contained"
+                disabled={!isFormValid}
+              >
                 Sign In
               </Button>
-              <Typography sx={{ marginBottom: 2, marginTop: 4 }}>
+              <Typography sx={{ marginBottom: 1, marginTop: 4 }}>
                 Don&apos;t have an account?
               </Typography>
-              <Link href={'/signUp'}>Create an account</Link>
+              <Link href="/signup">Create an account</Link>
             </Container>
           </form>
         </Box>
