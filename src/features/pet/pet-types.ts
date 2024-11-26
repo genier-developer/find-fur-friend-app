@@ -1,6 +1,6 @@
 export interface Pet {
   age: number
-  createdAt: string
+  createdAt: string | undefined
   id: string
   image: string
   isAvailable: boolean
