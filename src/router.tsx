@@ -11,7 +11,7 @@ import {
 import { selectUser } from '@/features/user/slices/auth-slice'
 import { LinearProgress } from '@mui/material'
 
-const AddNewPet = lazy(() => import('@/features/pet/components/pet-form'))
+const PetForm = lazy(() => import('@/features/pet/components/pet-form'))
 const Page404 = lazy(() => import('./pages/error-page'))
 const SignIn = lazy(() => import('./pages/sign-in'))
 const SignUp = lazy(() => import('./pages/sign-up'))
@@ -52,7 +52,7 @@ const privateRoutes: RouteObject[] = [
     path: '/favorites',
   },
   {
-    element: withSuspense(<AddNewPet />),
+    element: withSuspense(<PetForm />),
     path: '/add',
   },
 ]
