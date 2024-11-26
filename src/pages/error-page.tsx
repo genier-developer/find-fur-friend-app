@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
@@ -12,9 +11,7 @@ const ErrorPage = () => {
       <Typography sx={{ marginBottom: 2, marginTop: 2 }} variant={'h1'}>
         404
       </Typography>
-      <Button color={'primary'} component={Link} href={'/'} variant={'outlined'}>
-        BACK HOME
-      </Button>
+      <Link href={'/'}>Back home</Link>
     </div>
   )
 }
