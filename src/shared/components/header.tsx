@@ -43,9 +43,6 @@ export const Header = () => {
               <Button color={'inherit'} component={Link} to={'/'}>
                 HOME
               </Button>
-              <Button color={'inherit'} component={Link} to={'/add'}>
-                ADD NEW PET
-              </Button>
               <IconButton color={'inherit'} component={Link} to={'/favorites'}>
                 {favoritePets.length > 0 ? (
                   <Badge badgeContent={favoritePets.length} color={'error'}>

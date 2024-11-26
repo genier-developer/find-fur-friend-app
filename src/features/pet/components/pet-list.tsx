@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux'
-
+import { Link } from 'react-router-dom'
 import { useAppSelector } from '@/app/hooks'
 import { AlertDialog } from '@/shared/components/alert-dialog'
 import { selectUser } from '@/features/user/slices/auth-slice'
 import { selectPets } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
-import { Container, Grid, Typography } from '@mui/material'
+import { Button, Container, Grid, Typography } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 
 import { PetCard } from './pet-card'
@@ -44,6 +44,9 @@ export const PetList: FC = () => {
         <Grid item>
           {!currentUser && <AlertDialog open={isAlertOpen} onClose={handleCloseAlert} />}
         </Grid>
+        <Button component={Link} to="/add" variant={'outlined'}>
+          Add new pet
+        </Button>
       </Grid>
     </Container>
   )
