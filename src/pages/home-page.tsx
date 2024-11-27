@@ -16,11 +16,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <Container
-        sx={{
-          marginTop: '35px',
-        }}
-      >
+      <Container sx={{ marginTop: '35px' }}>
         <PetList />
       </Container>
     </>

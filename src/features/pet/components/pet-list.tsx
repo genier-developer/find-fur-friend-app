@@ -30,8 +30,9 @@ export const PetList: FC = () => {
         {pets.length === 0 && (
           <Grid item textAlign={'center'} xs={12}>
             <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
-              Pet shelter is empty.
+              Pet shelter is empty. Would you like to add new pet?
             </Typography>
+            <AddPetButton />
           </Grid>
         )}
         {pets.length > 0 &&
