@@ -48,19 +48,28 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
 
   const renderOwnerActions = () => (
     <Box display="flex" justifyContent="space-between" mt={2}>
-      <Button variant="contained" onClick={() => navigate(`/edit/${pet.id}`, { state: { pet } })}>
+      <Button
+        variant="contained"
+        sx={{ mt: 2 }}
+        onClick={() => navigate(`/edit/${pet.id}`, { state: { pet } })}
+      >
         Edit
       </Button>
-      <Button variant="contained" color="error" onClick={handleDelete}>
+      <Button variant="contained" sx={{ mt: 2 }} color="secondary" onClick={handleDelete}>
         Delete
       </Button>
     </Box>
   )
 
-  const renderDeleteButton = () => (
-    <Button variant="contained" sx={{ mt: 2 }} disabled>
-      Delete
-    </Button>
+  const renderNoOwnerActions = () => (
+    <Box display="flex" justifyContent="space-between" mt={2}>
+      <Button variant="contained" sx={{ mt: 2 }} disabled>
+        Edit
+      </Button>
+      <Button variant="contained" sx={{ mt: 2 }} disabled>
+        Delete
+      </Button>
+    </Box>
   )
 
   return (
@@ -83,7 +92,7 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
         <Typography color="text.secondary">
           Available: <b>{pet.isAvailable ? 'Yes' : 'No'}</b>
         </Typography>
-        {pet.ownerId === currentUser?.uid ? renderOwnerActions() : renderDeleteButton()}
+        {pet.ownerId === currentUser?.uid ? renderOwnerActions() : renderNoOwnerActions()}
         {!currentUser && <AlertDialog open={open} onClose={() => setOpen(false)} />}
       </CardContent>
     </Card>

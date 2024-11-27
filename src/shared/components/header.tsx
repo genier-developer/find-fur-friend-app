@@ -4,7 +4,7 @@ import { selectUser, signOutUser } from '@/features/user/slices/auth-slice'
 import { selectFavoritePets } from '@/features/pet/slices/pet-slice'
 import { auth } from '@/services/firebase'
 import { FavoriteBorderOutlined } from '@mui/icons-material'
-import PetsIcon from '@mui/icons-material/Pets'
+import PetsIcon from '../../assets/images/pet-logo-blue-white.svg'
 import { Box, AppBar, Badge, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { signOut } from 'firebase/auth'
 import { AuthDetails } from '@/features/user/auth-details'
@@ -33,15 +33,15 @@ export const Header = () => {
             size={'large'}
             sx={{ mr: 2 }}
           >
-            <PetsIcon />
+            <img width={'50px'} src={PetsIcon} alt={'logo'}></img>
           </IconButton>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
-            FindFurFriends
+            <b>FindFurFriends</b>
           </Typography>
           {currentUser ? (
             <>
               <Button color={'inherit'} component={Link} to={'/'}>
-                HOME
+                Home
               </Button>
               <IconButton color={'inherit'} component={Link} to={'/favorites'}>
                 {favoritePets.length > 0 ? (

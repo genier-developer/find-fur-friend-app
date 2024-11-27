@@ -1,22 +1,21 @@
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { useAppSelector } from '@/app/hooks'
 import { AlertDialog } from '@/shared/components/alert-dialog'
 import { selectUser } from '@/features/user/slices/auth-slice'
 import { selectPets } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
-import { Button, Container, Grid, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 
 import { PetCard } from './pet-card'
 import { FC, useState } from 'react'
+import { AddPetButton } from '@/features/pet/components/add-pet-button'
 
 export const PetList: FC = () => {
   const pets = useAppSelector(selectPets)
   const currentUser = useSelector(selectUser)
   const [isAlertOpen, setIsAlertOpen] = useState(false)
 
-  // const handleOpenAlert = () => setIsAlertOpen(true)
   const handleCloseAlert = () => setIsAlertOpen(false)
 
   const isLoading = useAppSelector(state => state.pet.isLoading)
@@ -31,7 +30,7 @@ export const PetList: FC = () => {
         {pets.length === 0 && (
           <Grid item textAlign={'center'} xs={12}>
             <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
-              Pet shelter is empty
+              Pet shelter is empty.
             </Typography>
           </Grid>
         )}
@@ -44,9 +43,7 @@ export const PetList: FC = () => {
         <Grid item>
           {!currentUser && <AlertDialog open={isAlertOpen} onClose={handleCloseAlert} />}
         </Grid>
-        <Button component={Link} to="/add" variant={'outlined'}>
-          Add new pet
-        </Button>
+        <AddPetButton />
       </Grid>
     </Container>
   )
