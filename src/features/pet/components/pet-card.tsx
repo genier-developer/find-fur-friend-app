@@ -9,6 +9,8 @@ import { Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/mate
 import { removePet } from '@/features/pet/actions/pet-actions'
 import { AlertDialog } from '@/shared/components/alert-dialog'
 import { useNavigate } from 'react-router-dom'
+import defaultCatImage from '../../../assets/images/cat-default.svg'
+import defaultDogImage from '../../../assets/images/dog-default.svg'
 
 export type PetItemProps = {
   pet: Pet
@@ -74,12 +76,19 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
 
   return (
     <Card elevation={6} sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" image={pet.image} sx={{ height: 200, width: 200 }} />
+      {pet.type === 'cat' ? (
+        <CardMedia component="img" sx={{ height: '200px' }} image={pet.image || defaultCatImage} />
+      ) : (
+        <CardMedia component="img" sx={{ height: '200px' }} image={pet.image || defaultDogImage} />
+      )}
       <CardContent>
         <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h5">{pet.name}</Typography>
           {renderFavoriteIcon()}
         </Box>
+        <Typography color="text.secondary">
+          Type: <b>{pet.type}</b>
+        </Typography>
         <Typography color="text.secondary">
           Age: <b>{pet.age}</b>
         </Typography>
