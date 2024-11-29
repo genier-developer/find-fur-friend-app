@@ -44,7 +44,9 @@ export const PetList: FC = () => {
         <Grid item>
           {!currentUser && <AlertDialog open={isAlertOpen} onClose={handleCloseAlert} />}
         </Grid>
-        <AddPetButton />
+        <div style={{ margin: '30px' }}>
+          <AddPetButton />
+        </div>
       </Grid>
     </Container>
   )
