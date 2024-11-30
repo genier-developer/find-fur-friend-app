@@ -38,7 +38,12 @@ const SignIn: FC = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       const user = userCredential.user
 
-      dispatch(setUser(user))
+      dispatch(
+        setUser({
+          uid: user.uid,
+          email: user.email,
+        })
+      )
       setIsOpen(false)
       navigate('/')
     } catch (error) {
