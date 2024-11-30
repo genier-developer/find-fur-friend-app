@@ -147,14 +147,14 @@ const PetForm: FC = () => {
               name="petName"
               onChange={onTextFieldChange}
               size="small"
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 3 }}
               value={pet.petName}
               variant="outlined"
               error={errors.petName}
               helperText={errors.petName ? 'Name is required' : ''}
             />
 
-            <FormControl fullWidth size="small" sx={{ marginBottom: 2 }} error={errors.petType}>
+            <FormControl fullWidth size="small" sx={{ marginBottom: 3 }} error={errors.petType}>
               <InputLabel>Type</InputLabel>
               <Select label="Type" name="petType" onChange={onTextFieldChange} value={pet.petType}>
                 <MenuItem value="cat">Cat</MenuItem>
@@ -169,7 +169,7 @@ const PetForm: FC = () => {
               name="petAge"
               onChange={onTextFieldChange}
               size="small"
-              sx={{ marginBottom: 1 }}
+              sx={{ marginBottom: 3 }}
               value={pet.petAge}
               variant="outlined"
               error={errors.petAge}
@@ -181,7 +181,7 @@ const PetForm: FC = () => {
               name="petWeight"
               onChange={onTextFieldChange}
               size="small"
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 3 }}
               value={pet.petWeight}
               variant="outlined"
               error={errors.petWeight}
@@ -208,5 +208,4 @@ const PetForm: FC = () => {
     </>
   )
 }
-
 export default PetForm
