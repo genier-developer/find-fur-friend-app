@@ -82,20 +82,20 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
         <CardMedia component="img" sx={{ height: '200px' }} image={pet.image || defaultDogImage} />
       )}
       <CardContent>
-        <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
+        <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
           <Typography variant="h5">{pet.name}</Typography>
           {renderFavoriteIcon()}
         </Box>
-        <Typography color="text.secondary">
+        <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Type: <b>{pet.type}</b>
         </Typography>
-        <Typography color="text.secondary">
+        <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Age: <b>{pet.age}</b>
         </Typography>
-        <Typography color="text.secondary">
+        <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Weight, kg: <b>{pet.weight}</b>
         </Typography>
-        <Typography color="text.secondary">
+        <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Sex: <b>{pet.sex ? 'Male' : 'Female'}</b>
         </Typography>
         <Typography color="text.secondary">
