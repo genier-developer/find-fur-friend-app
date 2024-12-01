@@ -5,11 +5,25 @@ import { Header } from '@/shared/components/header'
 import { PetCard } from '@/features/pet/components/pet-card'
 import { selectFavoritePets } from '@/features/pet/slices/pet-slice'
 import { Pet } from '@/features/pet/pet-types'
-import { Container, Grid, LinearProgress, Typography } from '@mui/material'
+import { Box, Container, Grid, LinearProgress, Typography } from '@mui/material'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { FavoriteBorder } from '@mui/icons-material'
 
 const FavoritePetList = () => {
   const favoritePets = useSelector(selectFavoritePets)
+  const navigate = useNavigate()
   const isLoading = useAppSelector(state => state.pet.isLoading)
+
+  useEffect(() => {
+    if (!isLoading && favoritePets.length === 0) {
+      const timer = setTimeout(() => {
+        navigate(-1)
+      }, 4000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [favoritePets, isLoading, navigate])
 
   if (isLoading) {
     return <LinearProgress />
@@ -27,9 +41,38 @@ const FavoritePetList = () => {
               </Grid>
             ))
           ) : (
-            <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
-              You don&apos;t have any favorites yet
-            </Typography>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                textAlign: 'center',
+                padding: 3,
+                borderRadius: 2,
+                boxShadow: 3,
+                backgroundColor: 'background.paper',
+              }}
+            >
+              <FavoriteBorder sx={{ fontSize: 40, color: 'text.primary', marginBottom: 1 }} />
+              <Typography variant="h6" sx={{ color: 'text.primary', textAlign: 'center' }}>
+                You don&apos;t have any favorites yet
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                  marginTop: 1,
+                  textAlign: 'center',
+                }}
+              >
+                Add your favorite pets to this list!
+              </Typography>
+            </Box>
           )}
         </Grid>
       </Container>
