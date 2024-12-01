@@ -35,6 +35,7 @@ const PetForm: FC = () => {
     petType: '',
     petWeight: '',
     ownerId: '',
+    isFavorite: false,
   })
 
   const [errors, setErrors] = useState({
@@ -50,13 +51,14 @@ const PetForm: FC = () => {
       createdAt: new Date().toISOString(),
       id: v1(),
       image: pet.petImage,
-      isAvailable: false,
+      isAvailable: true,
       name: pet.petName,
       sex: pet.petSex,
       type: pet.petType,
       updatedAt: new Date().toISOString(),
       weight: parseFloat(pet.petWeight.replace(',', '.')),
       ownerId: currentUser?.uid,
+      isFavorite: false,
     }),
     [pet]
   )
@@ -139,24 +141,35 @@ const PetForm: FC = () => {
           </Typography>
           <Container sx={{ marginTop: 3 }}>
             <TextField
+              required
               fullWidth
               label="Name (required)"
               name="petName"
               onChange={onTextFieldChange}
               size="small"
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 3 }}
               value={pet.petName}
               variant="outlined"
               error={errors.petName}
               helperText={errors.petName ? 'Name is required' : ''}
             />
+
+            <FormControl fullWidth size="small" sx={{ marginBottom: 3 }} error={errors.petType}>
+              <InputLabel>Type</InputLabel>
+              <Select label="Type" name="petType" onChange={onTextFieldChange} value={pet.petType}>
+                <MenuItem value="cat">Cat</MenuItem>
+                <MenuItem value="dog">Dog</MenuItem>
+              </Select>
+              {errors.petType && <Typography color="error">Type is required</Typography>}
+            </FormControl>
+
             <TextField
               fullWidth
               label="Age"
               name="petAge"
               onChange={onTextFieldChange}
               size="small"
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 3 }}
               value={pet.petAge}
               variant="outlined"
               error={errors.petAge}
@@ -168,29 +181,12 @@ const PetForm: FC = () => {
               name="petWeight"
               onChange={onTextFieldChange}
               size="small"
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 3 }}
               value={pet.petWeight}
               variant="outlined"
               error={errors.petWeight}
               helperText={errors.petWeight ? 'Invalid weight format' : ''}
             />
-
-            <FormControl fullWidth size="small" sx={{ marginBottom: 2 }}>
-              <InputLabel>Sex</InputLabel>
-              <Select label="Sex" name="petSex" onChange={onTextFieldChange} value={pet.petSex}>
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth size="small" sx={{ marginBottom: 2 }} error={errors.petType}>
-              <InputLabel>Type</InputLabel>
-              <Select label="Type" name="petType" onChange={onTextFieldChange} value={pet.petType}>
-                <MenuItem value="cat">Cat</MenuItem>
-                <MenuItem value="dog">Dog</MenuItem>
-              </Select>
-              {errors.petType && <Typography color="error">Type is required</Typography>}
-            </FormControl>
 
             <Box
               sx={{
@@ -212,5 +208,4 @@ const PetForm: FC = () => {
     </>
   )
 }
-
 export default PetForm
