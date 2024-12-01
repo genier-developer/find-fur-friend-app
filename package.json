@@ -2,7 +2,7 @@
   "name": "untitled111",
   "private": true,
   "version": "0.0.0",
-  "homepage": "",
+  "homepage": "https://genier-developer.github.io/pet-firebase",
   "type": "module",
   "scripts": {
     "dev": "vite",
