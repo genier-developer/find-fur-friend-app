@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/app/hooks'
 import { addNewPet, updatePet } from '@/features/pet/actions/pet-actions'
@@ -31,23 +31,23 @@ const PetForm: FC = () => {
     isAvailable: true,
   })
 
-  const newPet = useMemo<Pet>(
-    () => ({
-      age: +pet.age!,
-      createdAt: new Date().toISOString(),
-      id: v1(),
-      image: pet.image || '',
-      isAvailable: true,
-      name: pet.name!,
-      sex: pet.sex || 'Unknown',
-      type: pet.type!,
-      updatedAt: new Date().toISOString(),
-      weight: pet.weight,
-      ownerId: currentUser?.uid || '',
-      isFavorite: false,
-    }),
-    [pet, currentUser?.uid]
-  )
+  // const newPet = useMemo<Pet>(
+  //   () => ({
+  //     age: +pet.age!,
+  //     createdAt: new Date().toISOString(),
+  //     id: v1(),
+  //     image: pet.image || '',
+  //     isAvailable: true,
+  //     name: pet.name!,
+  //     sex: pet.sex || 'Unknown',
+  //     type: pet.type!,
+  //     updatedAt: new Date().toISOString(),
+  //     weight: pet.weight,
+  //     ownerId: currentUser?.uid || '',
+  //     isFavorite: false,
+  //   }),
+  //   [pet, currentUser?.uid]
+  // )
 
   useEffect(() => {
     if (id) {
@@ -93,20 +93,20 @@ const PetForm: FC = () => {
       return
     }
 
-    const updatedPet: Pet = {
-      id: pet.id || v1(),
-      age: pet.age,
-      createdAt: isEdit ? pet.createdAt! : new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      image: pet.image || '',
-      isAvailable: pet.isAvailable ?? true,
-      name: pet.name!,
-      sex: pet.sex || 'Unknown',
-      type: pet.type!,
-      weight: pet.weight,
-      ownerId: pet.ownerId || currentUser?.uid || '',
-      isFavorite: pet.isFavorite || false,
-    }
+    // const updatedPet: Pet = {
+    //   id: pet.id || v1(),
+    //   age: pet.age,
+    //   createdAt: isEdit ? pet.createdAt! : new Date().toISOString(),
+    //   updatedAt: new Date().toISOString(),
+    //   image: pet.image || '',
+    //   isAvailable: pet.isAvailable ?? true,
+    //   name: pet.name!,
+    //   sex: pet.sex || 'Unknown',
+    //   type: pet.type!,
+    //   weight: pet.weight,
+    //   ownerId: pet.ownerId || currentUser?.uid || '',
+    //   isFavorite: pet.isFavorite || false,
+    // }
 
     if (isEdit) {
       dispatch(
