@@ -89,6 +89,9 @@ importers:
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@20.17.6)(sass@1.81.0)(terser@5.36.0)
     devDependencies:
       '@it-incubator/prettier-config':
         specifier: ^0.1.2
@@ -135,9 +138,6 @@ importers:
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
-      vite:
-        specifier: ^5.4.11
-        version: 5.4.11(@types/node@20.17.6)(sass@1.81.0)(terser@5.36.0)
 
 packages:
 
