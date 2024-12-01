@@ -50,11 +50,7 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
 
   const renderOwnerActions = () => (
     <Box display="flex" justifyContent="space-between" mt={2}>
-      <Button
-        variant="contained"
-        sx={{ mt: 2 }}
-        onClick={() => navigate(`/edit/${pet.id}`, { state: { pet } })}
-      >
+      <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate(`/edit/${pet.id}`)}>
         Edit
       </Button>
       <Button variant="contained" sx={{ mt: 2 }} color="secondary" onClick={handleDelete}>

@@ -1,42 +1,75 @@
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/app/hooks'
-import { Header } from '@/shared/components/header'
-import { addNewPet } from '@/features/pet/actions/pet-actions'
-import {
-  Modal,
-  Box,
-  Container,
-  FormControl,
-  SelectChangeEvent,
-  Typography,
-  Button,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material'
+import { addNewPet, updatePet } from '@/features/pet/actions/pet-actions'
+import { Modal, Box, Typography, Button, TextField } from '@mui/material'
 import { v1 } from 'uuid'
 import { useSelector } from 'react-redux'
 import { selectUser } from '@/features/user/slices/auth-slice'
+import { useParams } from 'react-router-dom'
+import { getPetByIdFromFirebase } from '@/features/pet/pet-api'
+import { Pet } from '@/features/pet/pet-types'
 
 const PetForm: FC = () => {
+  const { id } = useParams<{ id: string }>()
   const currentUser = useSelector(selectUser)
   const [isOpen, setIsOpen] = useState(true)
   const dispatch = useAppDispatch()
+  const [isEdit, setIsEdit] = useState(false)
   const navigate = useNavigate()
 
-  const [pet, setPet] = useState({
-    petId: '',
-    petAge: '',
-    petImage: '',
-    petName: '',
-    petSex: '',
-    petType: '',
-    petWeight: '',
-    ownerId: '',
+  const [pet, setPet] = useState<Partial<Pet>>({
+    id: '',
+    age: 0,
+    weight: 0,
+    image: '',
+    name: '',
+    sex: 'Unknown',
+    type: '',
+    ownerId: currentUser?.uid || '',
     isFavorite: false,
+    isAvailable: true,
   })
+
+  const newPet = useMemo<Pet>(
+    () => ({
+      age: +pet.age!,
+      createdAt: new Date().toISOString(),
+      id: v1(),
+      image: pet.image || '',
+      isAvailable: true,
+      name: pet.name!,
+      sex: pet.sex || 'Unknown',
+      type: pet.type!,
+      updatedAt: new Date().toISOString(),
+      weight: pet.weight,
+      ownerId: currentUser?.uid || '',
+      isFavorite: false,
+    }),
+    [pet, currentUser?.uid]
+  )
+
+  useEffect(() => {
+    if (id) {
+      setIsEdit(true)
+      getPetByIdFromFirebase(id).then(data => {
+        if (data) {
+          setPet({
+            id: data.id,
+            age: data.age.toString(),
+            weight: data.weight.toString(),
+            image: data.image || '',
+            name: data.name || '',
+            sex: data.sex || 'Unknown',
+            type: data.type || '',
+            ownerId: data.ownerId || '',
+            isFavorite: data.isFavorite ?? false,
+            isAvailable: data.isAvailable ?? true,
+          })
+        }
+      })
+    }
+  }, [id])
 
   const [errors, setErrors] = useState({
     petName: false,
@@ -45,74 +78,70 @@ const PetForm: FC = () => {
     petWeight: false,
   })
 
-  const newPet = useMemo(
-    () => ({
-      age: +pet.petAge,
-      createdAt: new Date().toISOString(),
-      id: v1(),
-      image: pet.petImage,
-      isAvailable: true,
-      name: pet.petName,
-      sex: pet.petSex,
-      type: pet.petType,
-      updatedAt: new Date().toISOString(),
-      weight: parseFloat(pet.petWeight.replace(',', '.')),
-      ownerId: currentUser?.uid,
-      isFavorite: false,
-    }),
-    [pet]
-  )
-
-  const handleAdd = useCallback(() => {
-    const hasErrors = !pet.petName || !pet.petType || errors.petAge || errors.petWeight
+  const handleSave = useCallback(() => {
+    const hasErrors =
+      !pet.name || !pet.type || !pet.age || !pet.weight || errors.petAge || errors.petWeight
 
     if (hasErrors) {
+      alert('All required fields must be filled out.')
       setErrors({
-        petName: !pet.petName,
-        petType: !pet.petType,
-        petAge: errors.petAge,
-        petWeight: errors.petWeight,
+        petName: !pet.name,
+        petType: !pet.type,
+        petAge: !pet.age,
+        petWeight: !pet.weight,
       })
       return
     }
 
-    dispatch(addNewPet(newPet))
+    const updatedPet: Pet = {
+      id: pet.id || v1(),
+      age: pet.age,
+      createdAt: isEdit ? pet.createdAt! : new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      image: pet.image || '',
+      isAvailable: pet.isAvailable ?? true,
+      name: pet.name!,
+      sex: pet.sex || 'Unknown',
+      type: pet.type!,
+      weight: pet.weight,
+      ownerId: pet.ownerId || currentUser?.uid || '',
+      isFavorite: pet.isFavorite || false,
+    }
+
+    if (isEdit) {
+      dispatch(
+        updatePet({
+          ...pet,
+          age: +pet.age!,
+          weight: +pet.weight!,
+          updatedAt: new Date().toISOString(),
+        } as Pet)
+      )
+    } else {
+      dispatch(
+        addNewPet({
+          ...pet,
+          id: v1(),
+          age: +pet.age!,
+          weight: +pet.weight!,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        } as Pet)
+      )
+    }
+
     setIsOpen(false)
     navigate('/')
-  }, [dispatch, newPet, navigate, pet.petName, pet.petType, errors])
+  }, [dispatch, pet, isEdit, currentUser?.uid, errors, navigate])
 
-  const handleCancel = useCallback(() => {
-    setIsOpen(false)
-    navigate('/')
-  }, [navigate])
-
-  const handleCloseModal = () => {
+  const handleClose = () => {
     setIsOpen(false)
     navigate('/')
   }
 
-  const validateField = (name: string, value: string) => {
-    if (name === 'petAge') {
-      return !/^\d+$/.test(value)
-    }
-    if (name === 'petWeight') {
-      return !/^\d+([.,]\d+)?$/.test(value) //accept decimal numbers
-    }
+  const handleChange = (field: keyof Pet) => (e: ChangeEvent<HTMLInputElement>) => {
+    setPet(prev => ({ ...prev, [field]: e.target.value }))
   }
-
-  const onTextFieldChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-      const { name, value } = e.target
-
-      setPet(prevPet => ({ ...prevPet, [name]: value }))
-
-      setErrors(prevErrors => ({
-        ...prevErrors,
-        [name]: validateField(name, value),
-      }))
-    },
-    []
-  )
 
   const modalStyles = {
     position: 'absolute' as const,
@@ -127,85 +156,63 @@ const PetForm: FC = () => {
   }
 
   return (
-    <>
-      <Header />
-      <Modal
-        open={isOpen}
-        onClose={handleCloseModal}
-        aria-labelledby="add-new-pet-modal-title"
-        aria-describedby="add-new-pet-modal-description"
-      >
-        <Box sx={modalStyles}>
-          <Typography id="add-new-pet-modal-title" variant="h5" align="center">
-            ADD NEW PET
-          </Typography>
-          <Container sx={{ marginTop: 3 }}>
-            <TextField
-              required
-              fullWidth
-              label="Name (required)"
-              name="petName"
-              onChange={onTextFieldChange}
-              size="small"
-              sx={{ marginBottom: 3 }}
-              value={pet.petName}
-              variant="outlined"
-              error={errors.petName}
-              helperText={errors.petName ? 'Name is required' : ''}
-            />
-
-            <FormControl fullWidth size="small" sx={{ marginBottom: 3 }} error={errors.petType}>
-              <InputLabel>Type</InputLabel>
-              <Select label="Type" name="petType" onChange={onTextFieldChange} value={pet.petType}>
-                <MenuItem value="cat">Cat</MenuItem>
-                <MenuItem value="dog">Dog</MenuItem>
-              </Select>
-              {errors.petType && <Typography color="error">Type is required</Typography>}
-            </FormControl>
-
-            <TextField
-              fullWidth
-              label="Age"
-              name="petAge"
-              onChange={onTextFieldChange}
-              size="small"
-              sx={{ marginBottom: 3 }}
-              value={pet.petAge}
-              variant="outlined"
-              error={errors.petAge}
-              helperText={errors.petAge ? 'Invalid age format' : ''}
-            />
-            <TextField
-              fullWidth
-              label="Weight, kg"
-              name="petWeight"
-              onChange={onTextFieldChange}
-              size="small"
-              sx={{ marginBottom: 3 }}
-              value={pet.petWeight}
-              variant="outlined"
-              error={errors.petWeight}
-              helperText={errors.petWeight ? 'Invalid weight format' : ''}
-            />
-
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginTop: 3,
-              }}
-            >
-              <Button onClick={handleCancel} variant="contained">
-                Cancel
-              </Button>
-              <Button onClick={handleAdd} variant="contained">
-                Add
-              </Button>
-            </Box>
-          </Container>
+    <Modal open={isOpen} onClose={() => navigate('/')} aria-labelledby="pet-form-modal-title">
+      <Box sx={modalStyles}>
+        <Typography id="pet-form-modal-title" variant="h5" align="center" gutterBottom>
+          {isEdit ? 'EDIT PET' : 'ADD NEW PET'}
+        </Typography>
+        <TextField
+          label="Name"
+          value={pet.name || ''}
+          onChange={handleChange('name')}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Type"
+          value={pet.type || ''}
+          onChange={handleChange('type')}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Age"
+          type="number"
+          value={pet.age || ''}
+          onChange={handleChange('age')}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Weight"
+          type="number"
+          value={pet.weight || ''}
+          onChange={handleChange('weight')}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Image URL"
+          value={pet.image || ''}
+          onChange={handleChange('image')}
+          fullWidth
+          margin="normal"
+        />
+        <Box display={'flex'} justifyContent={'space-between'} sx={{ marginTop: 3 }}>
+          <Button onClick={handleSave} variant="contained">
+            {isEdit ? 'Save Changes' : 'Add'}
+          </Button>
+          <Button onClick={handleClose} variant="contained">
+            Cancel
+          </Button>
         </Box>
-      </Modal>
-    </>
+      </Box>
+    </Modal>
   )
 }
+
 export default PetForm

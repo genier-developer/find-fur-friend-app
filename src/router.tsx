@@ -55,6 +55,10 @@ const privateRoutes: RouteObject[] = [
     element: withSuspense(<PetForm />),
     path: '/add',
   },
+  {
+    element: withSuspense(<PetForm />),
+    path: '/edit/:id',
+  },
 ]
 
 export const router = createBrowserRouter(
