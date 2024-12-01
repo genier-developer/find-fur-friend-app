@@ -2,6 +2,17 @@ import { database } from '@/services/firebase'
 import { Pet } from '@/features/pet/pet-types'
 import { get, ref, remove, set } from 'firebase/database'
 
+export const getPetByIdFromFirebase = async (id: string) => {
+  const petRef = ref(database, `/pets/${id}`)
+  const snapshot = await get(petRef)
+
+  if (snapshot.exists()) {
+    return snapshot.val()
+  } else {
+    throw new Error(`Pet with ID ${id} not found.`)
+  }
+}
+
 export const fetchPetsFromFirebase = async (): Promise<Pet[]> => {
   const snapshot = await get(ref(database, 'pets'))
   const pets: Pet[] = []

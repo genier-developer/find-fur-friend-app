@@ -11,7 +11,7 @@ export const AddPetButton: FC = () => {
       <Divider />
       <CardActions sx={{ margin: 2 }}>
         <Button component={Link} to="/add" variant="contained">
-          Add new pet
+          Add pet
         </Button>
       </CardActions>
     </Card>
