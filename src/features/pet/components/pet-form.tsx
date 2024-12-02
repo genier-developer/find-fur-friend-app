@@ -28,7 +28,7 @@ const PetForm: FC = () => {
     type: '',
     ownerId: currentUser?.uid || '',
     isFavorite: false,
-    isAvailable: true,
+    isAvailable: '',
   })
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const PetForm: FC = () => {
             weight: data.weight.toString(),
             image: data.image || '',
             name: data.name || '',
-            sex: data.sex || 'Unknown',
+            sex: data.sex || '',
             type: data.type || '',
             ownerId: data.ownerId || '',
             isFavorite: data.isFavorite ?? false,
@@ -145,6 +145,14 @@ const PetForm: FC = () => {
           required
         />
         <TextField
+          label="Sex"
+          value={pet.sex || ''}
+          onChange={handleChange('sex')}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
           label="Age"
           type="number"
           value={pet.age || ''}
@@ -158,6 +166,15 @@ const PetForm: FC = () => {
           type="number"
           value={pet.weight || ''}
           onChange={handleChange('weight')}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Available"
+          type="text"
+          value={pet.isAvailable || ''}
+          onChange={handleChange('isAvailable')}
           fullWidth
           margin="normal"
           required

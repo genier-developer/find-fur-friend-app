@@ -3,7 +3,7 @@ export interface Pet {
   createdAt?: string | undefined
   id: string
   image?: string
-  isAvailable: boolean
+  isAvailable: string
   isFavorite?: boolean
   name: string
   sex?: string

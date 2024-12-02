@@ -19,7 +19,7 @@ const FavoritePetList = () => {
     if (!isLoading && favoritePets.length === 0) {
       const timer = setTimeout(() => {
         navigate(-1)
-      }, 4000)
+      }, 3000)
 
       return () => clearTimeout(timer)
     }

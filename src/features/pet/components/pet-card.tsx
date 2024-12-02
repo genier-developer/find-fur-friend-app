@@ -92,16 +92,16 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
           Type: <b>{pet.type}</b>
         </Typography>
         <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
+          Sex: <b>{pet.sex}</b>
+        </Typography>
+        <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Age: <b>{pet.age}</b>
         </Typography>
         <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Weight, kg: <b>{pet.weight}</b>
         </Typography>
-        <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
-          Sex: <b>{pet.sex ? 'Male' : 'Female'}</b>
-        </Typography>
         <Typography color="text.secondary">
-          Available: <b>{pet.isAvailable ? 'Yes' : 'No'}</b>
+          Available: <b>{pet.isAvailable}</b>
         </Typography>
         {pet.ownerId === currentUser?.uid ? renderOwnerActions() : renderNoOwnerActions()}
         {!currentUser && <AlertDialog open={open} onClose={() => setOpen(false)} />}
