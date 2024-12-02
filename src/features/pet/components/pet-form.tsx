@@ -2,13 +2,24 @@ import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/app/hooks'
 import { addNewPet, updatePet } from '@/features/pet/actions/pet-actions'
-import { Modal, Box, Typography, Button, TextField } from '@mui/material'
+import {
+  Modal,
+  Box,
+  Typography,
+  Button,
+  TextField,
+  SelectChangeEvent,
+  Select,
+  MenuItem,
+} from '@mui/material'
 import { v1 } from 'uuid'
 import { useSelector } from 'react-redux'
 import { selectUser } from '@/features/user/slices/auth-slice'
 import { useParams } from 'react-router-dom'
 import { getPetByIdFromFirebase } from '@/features/pet/pet-api'
 import { Pet } from '@/features/pet/pet-types'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
 
 const PetForm: FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -28,7 +39,7 @@ const PetForm: FC = () => {
     type: '',
     ownerId: currentUser?.uid || '',
     isFavorite: false,
-    isAvailable: '',
+    isAvailable: true,
   })
 
   useEffect(() => {
@@ -109,6 +120,9 @@ const PetForm: FC = () => {
   const handleChange = (field: keyof Pet) => (e: ChangeEvent<HTMLInputElement>) => {
     setPet(prev => ({ ...prev, [field]: e.target.value }))
   }
+  const handleSelectChange = (field: keyof Pet) => (event: SelectChangeEvent<string>) => {
+    setPet(prev => ({ ...prev, [field]: event.target.value }))
+  }
 
   const modalStyles = {
     position: 'absolute' as const,
@@ -136,22 +150,21 @@ const PetForm: FC = () => {
           margin="normal"
           required
         />
-        <TextField
-          label="Type"
-          value={pet.type || ''}
-          onChange={handleChange('type')}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Sex"
-          value={pet.sex || ''}
-          onChange={handleChange('sex')}
-          fullWidth
-          margin="normal"
-          required
-        />
+        <FormControl fullWidth margin="normal" required>
+          <InputLabel>Type</InputLabel>
+          <Select value={pet.type || ''} onChange={handleSelectChange('type')} label="Type">
+            <MenuItem value="cat">Cat</MenuItem>
+            <MenuItem value="dog">Dog</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth margin="normal" required>
+          <InputLabel>Sex</InputLabel>
+          <Select value={pet.sex || ''} onChange={handleSelectChange('sex')} label="Sex">
+            <MenuItem value="male">Male</MenuItem>
+            <MenuItem value="female">Female</MenuItem>
+            {/*<MenuItem value="unknown">Unknown</MenuItem>*/}
+          </Select>
+        </FormControl>
         <TextField
           label="Age"
           type="number"
