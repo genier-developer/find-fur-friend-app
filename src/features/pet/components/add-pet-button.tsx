@@ -7,9 +7,27 @@ import Divider from '@mui/material/Divider'
 export const AddPetButton: FC = () => {
   return (
     <Card elevation={6}>
-      <CardMedia component="img" sx={{ height: 200, width: 200 }} image={petIcon} alt="Pet logo" />
+      <CardMedia
+        component="img"
+        sx={{
+          height: '200px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#f0f0f0',
+        }}
+        image={petIcon}
+        alt="Pet logo"
+      />
       <Divider />
-      <CardActions sx={{ margin: 2 }}>
+      <CardActions
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 3,
+        }}
+      >
         <Button component={Link} to="/add" variant="contained">
           Add pet
         </Button>

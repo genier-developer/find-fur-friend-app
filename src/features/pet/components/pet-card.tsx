@@ -79,7 +79,6 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          // objectFit: 'contain', // чтобы изображение масштабировалось с учетом пропорций
           backgroundColor: '#f0f0f0',
         }}
         image={pet.image || (pet.type === 'cat' ? defaultCatImage : defaultDogImage)}
