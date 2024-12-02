@@ -72,11 +72,18 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
 
   return (
     <Card elevation={6} sx={{ maxWidth: 345 }}>
-      {pet.type === 'cat' ? (
-        <CardMedia component="img" sx={{ height: '200px' }} image={pet.image || defaultCatImage} />
-      ) : (
-        <CardMedia component="img" sx={{ height: '200px' }} image={pet.image || defaultDogImage} />
-      )}
+      <CardMedia
+        component="img"
+        sx={{
+          height: '200px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          // objectFit: 'contain', // чтобы изображение масштабировалось с учетом пропорций
+          backgroundColor: '#f0f0f0',
+        }}
+        image={pet.image || (pet.type === 'cat' ? defaultCatImage : defaultDogImage)}
+      />
       <CardContent>
         <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
           <Typography variant="h5">{pet.name}</Typography>
