@@ -20,6 +20,7 @@ import { getPetByIdFromFirebase } from '@/features/pet/pet-api'
 import { Pet } from '@/features/pet/pet-types'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
+import { DragAndDropUploader } from '@/features/pet/components/drag-and-drop-uploader'
 
 const PetForm: FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -123,6 +124,15 @@ const PetForm: FC = () => {
   const handleSelectChange = (field: keyof Pet) => (event: SelectChangeEvent<string>) => {
     setPet(prev => ({ ...prev, [field]: event.target.value }))
   }
+  const handleImageUpload = (file: File) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (reader.result) {
+        setPet(prev => ({ ...prev, image: reader.result as string }))
+      }
+    }
+    reader.readAsDataURL(file)
+  }
 
   const modalStyles = {
     position: 'absolute' as const,
@@ -130,10 +140,13 @@ const PetForm: FC = () => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    height: '80vh',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    overflowY: 'auto',
+    paddingRight: '8px',
+    p: 2,
   }
 
   return (
@@ -142,6 +155,13 @@ const PetForm: FC = () => {
         <Typography id="pet-form-modal-title" variant="h5" align="center" gutterBottom>
           {isEdit ? 'EDIT PET' : 'ADD NEW PET'}
         </Typography>
+        <DragAndDropUploader onUpload={handleImageUpload} />
+        {pet.image && (
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="body2">Preview:</Typography>
+            <img src={pet.image} alt="Preview" style={{ maxWidth: '100%', borderRadius: '8px' }} />
+          </Box>
+        )}
         <TextField
           label="Name"
           value={pet.name || ''}
@@ -162,7 +182,7 @@ const PetForm: FC = () => {
           <Select value={pet.sex || ''} onChange={handleSelectChange('sex')} label="Sex">
             <MenuItem value="male">Male</MenuItem>
             <MenuItem value="female">Female</MenuItem>
-            {/*<MenuItem value="unknown">Unknown</MenuItem>*/}
+            <MenuItem value="unknown">Unknown</MenuItem>
           </Select>
         </FormControl>
         <TextField
@@ -182,22 +202,6 @@ const PetForm: FC = () => {
           fullWidth
           margin="normal"
           required
-        />
-        <TextField
-          label="Available"
-          type="text"
-          value={pet.isAvailable || ''}
-          onChange={handleChange('isAvailable')}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Image URL"
-          value={pet.image || ''}
-          onChange={handleChange('image')}
-          fullWidth
-          margin="normal"
         />
         <Box display={'flex'} justifyContent={'space-between'} sx={{ marginTop: 3 }}>
           <Button onClick={handleSave} variant="contained">
