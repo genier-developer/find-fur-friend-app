@@ -1,6 +1,7 @@
 import React, { FC, useRef } from 'react'
 import { Box, Typography } from '@mui/material'
 import { DragEvent } from 'react'
+import { resizeImage } from './imageProcessor'
 
 interface DragAndDropUploaderProps {
   onUpload: (file: File) => void
@@ -9,12 +10,18 @@ interface DragAndDropUploaderProps {
 export const DragAndDropUploader: FC<DragAndDropUploaderProps> = ({ onUpload }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      onUpload(e.dataTransfer.files[0])
+      const file = e.dataTransfer.files[0]
+      try {
+        const resizedFile = await resizeImage(file, 200, 200)
+        onUpload(resizedFile)
+      } catch (error) {
+        console.error('Error processing image:', error)
+      }
       e.dataTransfer.clearData()
     }
   }
@@ -25,9 +32,15 @@ export const DragAndDropUploader: FC<DragAndDropUploaderProps> = ({ onUpload }) 
     }
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      onUpload(e.target.files[0])
+      const file = e.target.files[0]
+      try {
+        const resizedFile = await resizeImage(file, 200, 200)
+        onUpload(resizedFile)
+      } catch (error) {
+        console.error('Error processing image:', error)
+      }
     }
   }
 
