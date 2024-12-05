@@ -32,7 +32,6 @@ export const PetList: FC = () => {
             <Typography sx={{ marginBottom: 2, marginTop: 4 }} variant={'h6'}>
               Pet shelter is empty. Would you like to add new pet?
             </Typography>
-            <AddPetButton />
           </Grid>
         )}
         {pets.length > 0 &&
