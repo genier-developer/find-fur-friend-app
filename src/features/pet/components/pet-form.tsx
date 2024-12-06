@@ -20,7 +20,7 @@ import { getPetByIdFromFirebase } from '@/features/pet/pet-api'
 import { Pet } from '@/features/pet/pet-types'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import { DragAndDropUploader } from '@/features/pet/components/drag-and-drop-uploader'
+import { DragAndDropUploader } from '@/features/pet/components/image-uploader/drag-and-drop-uploader'
 
 const PetForm: FC = () => {
   const { id } = useParams<{ id: string }>()

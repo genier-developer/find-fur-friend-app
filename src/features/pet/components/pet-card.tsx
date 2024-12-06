@@ -9,8 +9,8 @@ import { Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/mate
 import { removePet } from '@/features/pet/actions/pet-actions'
 import { AlertDialog } from '@/shared/components/alert-dialog'
 import { useNavigate } from 'react-router-dom'
-import defaultCatImage from '../../../assets/images/cat-default.svg'
-import defaultDogImage from '../../../assets/images/dog-default.svg'
+import defaultCatImage from '../../../assets/icons/cat-default.svg'
+import defaultDogImage from '../../../assets/icons/dog-default.svg'
 
 export type PetItemProps = {
   pet: Pet
@@ -99,9 +99,6 @@ export const PetCard: FC<PetItemProps> = ({ pet, isFavorite = false }) => {
         </Typography>
         <Typography color="text.secondary" sx={{ marginBottom: 1 }}>
           Weight, kg: <b>{pet.weight}</b>
-        </Typography>
-        <Typography color="text.secondary">
-          Available: <b>{pet.isAvailable}</b>
         </Typography>
         {pet.ownerId === currentUser?.uid ? renderOwnerActions() : renderNoOwnerActions()}
         {!currentUser && <AlertDialog open={open} onClose={() => setOpen(false)} />}
