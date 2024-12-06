@@ -1,7 +1,8 @@
 import React, { FC, useRef } from 'react'
 import { Box, Typography } from '@mui/material'
 import { DragEvent } from 'react'
-import { resizeImage } from './imageProcessor'
+import { resizeImage } from './image-processor'
+
 
 interface DragAndDropUploaderProps {
   onUpload: (file: File) => void
