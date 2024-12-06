@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Button, Card, CardActions, CardMedia } from '@mui/material'
 import { Link } from 'react-router-dom'
-import petIcon from '../../../assets/images/pets-image.svg'
+import petIcon from '../../../assets/icons/pets-image.svg'
 import Divider from '@mui/material/Divider'
 
 export const AddPetButton: FC = () => {

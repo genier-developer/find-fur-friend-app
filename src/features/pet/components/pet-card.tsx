@@ -9,8 +9,8 @@ import { Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/mate
 import { removePet } from '@/features/pet/actions/pet-actions'
 import { AlertDialog } from '@/shared/components/alert-dialog'
 import { useNavigate } from 'react-router-dom'
-import defaultCatImage from '../../../assets/images/cat-default.svg'
-import defaultDogImage from '../../../assets/images/dog-default.svg'
+import defaultCatImage from '../../../assets/icons/cat-default.svg'
+import defaultDogImage from '../../../assets/icons/dog-default.svg'
 
 export type PetItemProps = {
   pet: Pet
