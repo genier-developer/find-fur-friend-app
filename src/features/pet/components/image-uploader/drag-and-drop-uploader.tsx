@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material'
 import { DragEvent } from 'react'
 import { resizeImage } from './image-processor'
 
+
 interface DragAndDropUploaderProps {
   onUpload: (file: File) => void
 }

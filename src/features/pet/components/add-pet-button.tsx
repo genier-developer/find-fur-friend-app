@@ -11,9 +11,6 @@ export const AddPetButton: FC = () => {
         component="img"
         sx={{
           height: '200px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           backgroundColor: '#f0f0f0',
         }}
         image={petIcon}
@@ -25,7 +22,7 @@ export const AddPetButton: FC = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: 3,
+          padding: 2,
         }}
       >
         <Button component={Link} to="/add" variant="contained">

@@ -1,8 +1,8 @@
 {
-  "name": "untitled111",
+  "name": "find-fur-friend-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://genier-developer.github.io/pet-firebase",
+  "homepage": "https://genier-developer.github.io/find-fur-friend-app",
   "type": "module",
   "scripts": {
     "dev": "vite",
