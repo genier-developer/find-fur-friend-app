@@ -6,6 +6,7 @@ import { AppDispatch } from '@/app/store'
 export const listenToAuthChanges = () => (dispatch: AppDispatch) => {
   onAuthStateChanged(auth, user => {
     if (user) {
+      console.log('User detected:', user.uid)
       dispatch(
         setUser({
           uid: user.uid,
@@ -13,6 +14,7 @@ export const listenToAuthChanges = () => (dispatch: AppDispatch) => {
         })
       )
     } else {
+      console.log('No user detected')
       dispatch(setUser(null))
     }
   })
