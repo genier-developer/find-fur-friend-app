@@ -8,8 +8,9 @@ import PetsIcon from '../../assets/icons/pet-logo-blue-white.png'
 import { Box, AppBar, Badge, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { signOut } from 'firebase/auth'
 import { AuthDetails } from '@/features/user/auth-details'
+import { FC } from 'react'
 
-export const Header = () => {
+export const Header: FC = () => {
   const favoritePets = useSelector(selectFavoritePets)
   const currentUser = useSelector(selectUser)
   const dispatch = useDispatch()
