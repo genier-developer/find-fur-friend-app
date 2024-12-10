@@ -1,30 +1,12 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Key Features:
+Find Your Match: Browse a variety of profiles of cats, dogs, and other animals looking for a loving home.
+Help Strays: Easily report stray animals in need of assistance, helping them get the care and shelter they deserve.
+Filter by Preferences: Use filters to search by species, size, age, or location to find the perfect match for your family.
+User-Friendly Navigation: Enjoy a clean and intuitive interface designed to make finding or helping animals easy and enjoyable.
 
-Currently, two official plugins are available:
+# Why Choose Find Fur Friend?
+This app is more than a tool; it's a mission. By using Find Fur Friend, you're joining a community dedicated to giving animals a second chance at life. Whether you're adopting your next furry friend or ensuring that a stray animal gets the help it needs, every action you take brings us closer to a world where no animal is left behind.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Find Fur Friend — because everyone deserves a loving home. Start making a difference today!
